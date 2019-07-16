@@ -4,11 +4,31 @@ import './App.css';
 
 
 class App extends React.Component {
+  constructor(){
+    super()
+    this.state = {
+      location: {
+        city: "",
+        state: "",
+        zipCode: 75559
+      },
+    }
+  }
 
   componentDidMount(){
-    fetch('http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=%20%0902mtZLqgGoe78g58B17BcOC6BbddBEwh%20&q=90210&language=en-us&details=true')
+    fetch(`http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=%20%0902mtZLqgGoe78g58B17BcOC6BbddBEwh%20&q=${this.state.location.zipCode}&language=en-us&details=true`)
     .then(res => res.json())
-    .then(data => console.log(data))
+    .then(data => {
+      const {EnglishName, AdministrativeArea} = data[0];
+      this.setState({
+        location: {
+          city: EnglishName,
+          state: AdministrativeArea.ID
+        }
+      })
+
+      console.log(data[0].ParentCity.Key)
+    })
   }
 
   render(){
@@ -17,16 +37,15 @@ class App extends React.Component {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
-            Edit <code>src/App.js</code> and save to reload.
+            {this.state.location.city}, {this.state.location.state}
           </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+          
+
+          <form>
+
+            <input type="text" />
+            <p>Please enter a valid zip code.</p>
+          </form>
         </header>
       </div>
     );
