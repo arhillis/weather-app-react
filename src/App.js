@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 
@@ -35,7 +34,9 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+          Weather App
+        </header>
+        <main>
           <p>
             {this.state.location.city}, {this.state.location.state}
           </p>
@@ -46,7 +47,7 @@ class App extends React.Component {
             <input type="text" />
             <p>Please enter a valid zip code.</p>
           </form>
-        </header>
+        </main>
       </div>
     );
   }
