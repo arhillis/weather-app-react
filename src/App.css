@@ -1,15 +1,32 @@
+:root{
+  --light-green: #3CC47C;
+  --dark-green: #1E392A;
+  --peach: #e9c893;
+  --tin: #828081;
+  --white: #f8f8f8;
+}
+
+
 .App {
-  text-align: center;
+  color: var(--dark-green);
+
 }
 
 .App-header {
-  background-color: #282c34;
+  text-align: center;
+  background-color: var(--dark-green);
   height: 150px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: 3.5em;
-  color: #a4ebff;
+  color: var(--peach);
+}
+
+.container{
+  width: 80%;
+  max-width: 960px;
+  margin: 0 auto;
 }
 
