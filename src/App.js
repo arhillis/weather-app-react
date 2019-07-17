@@ -9,14 +9,28 @@ class App extends React.Component {
       location: {
         city: "",
         state: "",
-        zipCode: 75559
+        zipCode: 75501
       },
+      API_KEY: "%20%0902mtZLqgGoe78g58B17BcOC6BbddBEwh"
+
     }
   }
 
-  componentDidMount(){
-    const API_KEY = "%20%0902mtZLqgGoe78g58B17BcOC6BbddBEwh";
-    const {zipCode} = this.state.location;
+  getForcast = key =>{
+    fetch(`http://dataservice.accuweather.com/forecasts/v1/daily/1day/${key}?apikey=${this.state.API_KEY}%20&language=en-us&details=true&metric=false`)
+    .then(res => res.json())
+    .then(data => {
+      const forcast = data.DailyForecasts[0]
+      console.log(forcast);
+
+      this.setState({
+        phrase: forcast.Day.LongPhrase
+      })
+    })
+  }
+
+  getLocation = () => {
+    const {API_KEY, location: {zipCode}} = this.state;
     
     fetch(`http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=${API_KEY}%20&q=${zipCode}&language=en-us&details=true`)
     .then(res => res.json())
@@ -27,12 +41,13 @@ class App extends React.Component {
           city: EnglishName,
           state: AdministrativeArea.ID
         }
-      })
-
-      fetch(`http://dataservice.accuweather.com/forecasts/v1/daily/1day/${ParentCity.Key}?apikey=${API_KEY}%20&language=en-us&details=true&metric=false`).then(res => res.json())
-      .then(data => console.log(data.DailyForecasts))
+      })      
+      this.getForcast(ParentCity.Key)
     })
+  }
 
+  componentDidMount(){
+    this.getLocation();
   }
 
   render(){
@@ -42,6 +57,7 @@ class App extends React.Component {
           Weather App
         </header>
         <main className="container">
+          <p>{this.state.phrase}</p>
           <p>
             {this.state.location.city}, {this.state.location.state}
           </p>
