@@ -10,17 +10,17 @@ class App extends React.Component {
       location: {
         city: "",
         state: "",
-        zipCode: 65101
+        zipCode: 75069
       },
-      API_KEY: "%20%0902mtZLqgGoe78g58B17BcOC6BbddBEwh"
+      openWeather_API_KEY: "87ee9d9eb500edc3fa8b18f1e1c97509"
 
     }
   }
 
   getLocation = () => {
-    const {location: {zipCode}} = this.state;
+    const {location: {zipCode}, openWeather_API_KEY} = this.state;
     
-    fetch(`http://api.openweathermap.org/data/2.5/weather?zip=${zipCode},us&appid=87ee9d9eb500edc3fa8b18f1e1c97509&units=imperial`)
+    fetch(`http://api.openweathermap.org/data/2.5/weather?zip=${zipCode},us&appid=${openWeather_API_KEY}&units=imperial`)
     .then(res => res.json())
     .then(data => {
       const {name:city, coord: {lat, lon}} = data;
