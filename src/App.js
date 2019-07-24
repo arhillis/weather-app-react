@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 
+//87ee9d9eb500edc3fa8b18f1e1c97509
 
 class App extends React.Component {
   constructor(){
@@ -9,40 +10,52 @@ class App extends React.Component {
       location: {
         city: "",
         state: "",
-        zipCode: 75501
+        zipCode: 75409
       },
       API_KEY: "%20%0902mtZLqgGoe78g58B17BcOC6BbddBEwh"
 
     }
   }
 
-  getForcast = key =>{
-    fetch(`http://dataservice.accuweather.com/forecasts/v1/daily/1day/${key}?apikey=${this.state.API_KEY}%20&language=en-us&details=true&metric=false`)
-    .then(res => res.json())
-    .then(data => {
-      const forcast = data.DailyForecasts[0]
-      console.log(forcast);
+  // getForcast = key =>{
+  //   fetch(`https://samples.openweathermap.org/data/2.5/weather?zip=75559,us&appid=87ee9d9eb500edc3fa8b18f1e1c97509`)
+  //   .then(res => res.json())
+  //   .then(data => {
+  //     console.log(data)
+  //     // const forcast = data.DailyForecasts[0]
 
-      this.setState({
-        phrase: forcast.Day.LongPhrase
-      })
-    })
-  }
+  //     // this.setState({
+  //     //   phrase: forcast.Day.LongPhrase
+  //     // })
+  //   })
+  // }
 
   getLocation = () => {
-    const {API_KEY, location: {zipCode}} = this.state;
+    const {location: {zipCode}} = this.state;
     
-    fetch(`http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=${API_KEY}%20&q=${zipCode}&language=en-us&details=true`)
+    fetch(`http://api.openweathermap.org/data/2.5/weather?zip=${zipCode},us&appid=87ee9d9eb500edc3fa8b18f1e1c97509&units=imperial`)
     .then(res => res.json())
     .then(data => {
-      const {EnglishName, AdministrativeArea, ParentCity} = data[0];
-      this.setState({
-        location: {
-          city: EnglishName,
-          state: AdministrativeArea.ID
-        }
-      })      
-      this.getForcast(ParentCity.Key)
+      const {name:city} = data;
+
+      fetch('http://open.mapquestapi.com/geocoding/v1/address?key=oz9OL7hgFsSS19Ljsn3iL4PNMxGRT90E&location=33.34,-96.56')
+      .then(res => res.json())
+      .then(data => 
+        this.setState({
+          location: {
+            city: city,
+            state: data.results[0].locations[0].adminArea3
+          }
+        })
+      )
+      //   const {EnglishName, AdministrativeArea, ParentCity} = data[0];
+    //   this.setState({
+    //     location: {
+    //       city: EnglishName,
+    //       state: AdministrativeArea.ID
+    //     }
+    //   })      
+    //   this.getForcast(ParentCity.Key)
     })
   }
 
