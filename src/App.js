@@ -37,7 +37,7 @@ class App extends React.Component {
             state: data.results[0].locations[0].adminArea3,
             zip: zipCode
           }
-        })
+        })//this is a comment
       )
     })
   }
@@ -49,6 +49,15 @@ class App extends React.Component {
       zipCode: value,
       zipCodeValid: zipRegex.test(value)
     })
+  }
+
+  onSubmit = (event) =>{
+    event.preventDefault();
+    if(this.state.zipCodeValid){
+      this.getLocation()
+    }else{
+      alert("Please enter a valid zip code.")
+    }
   }
 
   componentDidMount(){
@@ -69,7 +78,7 @@ class App extends React.Component {
           </p>
           
 
-          <form >
+          <form onSubmit={this.onSubmit}>
             <label>
               <input type="text" 
                     name="zipCode" 
