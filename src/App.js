@@ -81,8 +81,7 @@ class App extends React.Component {
   }
 
   render(){
-    const {city, state, zip} = this.state.location;
-    const {phrase, currentTemp, high, low} = this.state.forcast;
+    const {location: {city, state, zip}, forcast: {phrase, currentTemp, high, low}} = this.state;
     return (
       <div className="App">
         <header className="App-header">
