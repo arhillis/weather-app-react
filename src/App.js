@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
 
+import Display from './components/display'
+
 class App extends React.Component {
   constructor(){
     super()
@@ -78,20 +80,14 @@ class App extends React.Component {
   }
 
   render(){
-    const {location: {city, state, zip}, forcast: {phrase, currentTemp, high, low}} = this.state;
+    const {location, forcast} = this.state;
     return (
       <div className="App">
         <header className="App-header">
           Weather App
         </header>
         <main className="container">
-          <h3>
-            Forcast for {city}, {state} {zip}
-          </h3>
-          <p>{phrase}</p>
-          <p>Current tempeture: {currentTemp}</p>
-          <p>High: {high}</p>
-          <p>Low: {low}</p>
+          <Display forcast={forcast} location={location}/>
 
           <form onSubmit={this.onSubmit}>
             <label>
