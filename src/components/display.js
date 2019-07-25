@@ -4,15 +4,21 @@ class Display extends Component {
     render() {
         const {forcast: {currentTemp, high, low, phrase}, location: {city, state, zip}} = this.props;
         return (
-            <div>
-                <h3>
-                Forcast for {city}, {state} {zip}
-                </h3>
-                <p>{phrase}</p>
-                <p>Current tempeture: {currentTemp}</p>
-                <p>High: {high}</p>
-                <p>Low: {low}</p>
-            </div>
+            <article className="one-day-display">
+                <header>
+                    <h2>
+                    {city}, {state} {zip}
+                    </h2>
+                </header>
+                <section>
+                    <p className="current-temp">{currentTemp} &deg;F</p>
+                    <p>{phrase.charAt(0).toUpperCase() + phrase.slice(1)}</p>
+                </section>
+                <section>
+                    <p>High: {high} &deg;F</p>
+                    <p>Low: {low} &deg;F</p>
+                </section>
+            </article>
         );
     }
 }
