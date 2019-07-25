@@ -65,7 +65,7 @@ class App extends React.Component {
   }
 
   render(){
-    const {zipCode} = this.state.location;
+    const {city, state, zip} = this.state.location;
     return (
       <div className="App">
         <header className="App-header">
@@ -73,9 +73,9 @@ class App extends React.Component {
         </header>
         <main className="container">
           <p>{this.state.phrase}</p>
-          <p>
-            {this.state.location.city}, {this.state.location.state}
-          </p>
+          <h3>
+            Forcast for {city}, {state} {zip}
+          </h3>
           
 
           <form onSubmit={this.onSubmit}>
