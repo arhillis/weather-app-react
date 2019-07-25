@@ -1,8 +1,6 @@
 import React from 'react';
 import './App.css';
 
-//87ee9d9eb500edc3fa8b18f1e1c97509
-
 class App extends React.Component {
   constructor(){
     super()
@@ -52,7 +50,7 @@ class App extends React.Component {
             high: temp_max,
             low: temp_min
           }
-        })//this is a comment
+        })
       )
     })
   }
