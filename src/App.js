@@ -35,7 +35,6 @@ class App extends React.Component {
     .then(data => {
       const {name:city, coord: {lat, lon}, main:{temp, temp_max, temp_min}, weather} = data;
       const {description, icon} = weather[0];
-      console.log(weather[0])
 
       fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=${mapquest_API_KEY}&location=${lat},${lon}`)
       .then(res => res.json())
