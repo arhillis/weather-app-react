@@ -14,21 +14,30 @@ class App extends React.Component {
         state: "",
         zip: ''
       },
-      openWeather_API_KEY: "87ee9d9eb500edc3fa8b18f1e1c97509"
+      forcast: {
+        phrase: "",
+        icon: "",
+        currentTemp: "",
+        high: "", 
+        low: ""
+      },
+      openWeather_API_KEY: "87ee9d9eb500edc3fa8b18f1e1c97509",
+      mapquest_API_KEY: "oz9OL7hgFsSS19Ljsn3iL4PNMxGRT90E"
 
     }
   }
 
   getLocation = () => {
-    const {zipCode, openWeather_API_KEY} = this.state;
+    const {zipCode, openWeather_API_KEY, mapquest_API_KEY} = this.state;
     
     fetch(`http://api.openweathermap.org/data/2.5/weather?zip=${zipCode},us&appid=${openWeather_API_KEY}&units=imperial`)
     .then(res => res.json())
     .then(data => {
-      const {name:city, coord: {lat, lon}} = data;
-      console.log(data)
+      const {name:city, coord: {lat, lon}, main:{temp, temp_max, temp_min}, weather} = data;
+      const {description, icon} = weather[0];
+      console.log(weather[0])
 
-      fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=oz9OL7hgFsSS19Ljsn3iL4PNMxGRT90E&location=${lat},${lon}`)
+      fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=${mapquest_API_KEY}&location=${lat},${lon}`)
       .then(res => res.json())
       .then(data => 
         this.setState({
@@ -36,6 +45,13 @@ class App extends React.Component {
             city: city,
             state: data.results[0].locations[0].adminArea3,
             zip: zipCode
+          },
+          forcast: {
+            phrase: description,
+            icon: icon,
+            currentTemp: temp,
+            high: temp_max,
+            low: temp_min
           }
         })//this is a comment
       )
@@ -66,17 +82,20 @@ class App extends React.Component {
 
   render(){
     const {city, state, zip} = this.state.location;
+    const {phrase, currentTemp, high, low} = this.state.forcast;
     return (
       <div className="App">
         <header className="App-header">
           Weather App
         </header>
         <main className="container">
-          <p>{this.state.phrase}</p>
           <h3>
             Forcast for {city}, {state} {zip}
           </h3>
-          
+          <p>{phrase}</p>
+          <p>Current tempeture: {currentTemp}</p>
+          <p>High: {high}</p>
+          <p>Low: {low}</p>
 
           <form onSubmit={this.onSubmit}>
             <label>
