@@ -1,43 +1,49 @@
-:root{
+//http://paletton.com/#uid=5340u0kldl-Os0Nu7b9cmvW3TYZ
 
-  --color-primary-0: #AF523C;	/* Main Primary color */
-  --color-primary-1: #FFB9A9;
-  --color-primary-2: #FF9880;
-  --color-primary-3: #5F2012;
-  --color-primary-4: #0C0301;
+$color-primary-0: #277556;	// Main Primary color */
+$color-primary-1: #000403;
+$color-primary-2: #043C26;
+$color-primary-3: #6AAD92;
+$color-primary-4: #DCFAEE;
 
-  --color-secondary-1-0: #295A6F;	/* Main Secondary color (1) */
-  --color-secondary-1-1: #A6DDF4;
-  --color-secondary-1-2: #5489A0;
-  --color-secondary-1-3: #0D2E3C;
-  --color-secondary-1-4: #010608;
+$color-secondary-1-0: #2A506F;	// Main Secondary color (1) */
+$color-secondary-1-1: #000204;
+$color-secondary-1-2: #072239;
+$color-secondary-1-3: #6989A4;
+$color-secondary-1-4: #DDEDF9;
 
-  --color-secondary-2-0: #71A037;	/* Main Secondary color (2) */
-  --color-secondary-2-1: #D6FCA7;
-  --color-secondary-2-2: #B4E874;
-  --color-secondary-2-3: #375610;
-  --color-secondary-2-4: #060B00;
-}
+$color-secondary-2-0: #5F9833;	// Main Secondary color (2) */
+$color-secondary-2-1: #020600;
+$color-secondary-2-2: #254F05;
+$color-secondary-2-3: #B0E28B;
+$color-secondary-2-4: #ECFDDE;
+
+$header-color: $color-secondary-2-4;
+$header-bg: $color-secondary-1-2;
+$header-bg-light: $color-secondary-1-0;
+
+$section-body-bg: $color-secondary-2-4;
+
 *{
   box-sizing: border-box;
 }
 
 
 .App {
-  color: var(--color-primary-0);
+  color: $color-primary-2;
 
 }
 
 .App-header {
+  color: $header-color;
+  background: $header-bg;
   text-align: center;
-  background-color: var(--color-primary-3);
   height: 150px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: 3.5em;
-  color: var(--color-secondary-2-1);
 }
 
 .container{
@@ -51,19 +57,18 @@ form p{
 }
 
 .one-day-display{
-  border: 2px solid var(--color-primary-0);
   display: flex;
   flex-wrap: wrap;
-  background: var(--color-secondary-1-0);
-  color: var(--color-secondary-2-1);
-}
-
-.one-day-display header{
-  margin-top: 0;
-  background: var(--color-secondary-2-4);
-  padding: 0 10px;
-  width: 100%;
-
+  margin-top: 30px;
+  background: $section-body-bg;
+  
+  header{
+    background: $header-bg-light;
+    color: $header-color;
+    margin-top: 0;
+    padding: 0 10px;
+    width: 100%;
+  }
 }
 
 .one-day-display section{
