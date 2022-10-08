@@ -1,14 +1,16 @@
 import React from 'react';
-//import './App.scss';
+import './App.scss';
+import Button from 'react-bootstrap/Button';
 
 import Search from './components/search/search';
 
-class App extends React.Component {
-  render(){
-    return (<div className="App">
+function App() {
+    return (<div className="App container">
+        <Button as="a" variant="primary">
+    Button as link
+  </Button>
       <Search />
     </div>);
-  }
 }
 
 // import Display from './components/display'
