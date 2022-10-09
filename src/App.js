@@ -1,15 +1,17 @@
 import React from 'react';
 import './App.scss';
-import Button from 'react-bootstrap/Button';
 
 import Search from './components/search/search';
 
 function App() {
+
+    const handleSearchChange = (searchData) =>{
+      console.log('Searching...')
+      console.log(searchData);
+    }
+
     return (<div className="App container">
-        <Button as="a" variant="primary">
-    Button as link
-  </Button>
-      <Search />
+      <Search onSearchChange={handleSearchChange}/>
     </div>);
 }
 

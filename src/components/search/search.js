@@ -1,31 +1,42 @@
-const Search = () =>{
-    return ('Searchbar goes here')
+import { useState } from "react";
+import { AsyncPaginate } from "react-select-async-paginate";
+import { GEO_API_URL, geoApiOptions } from "../../api";
+
+const Search = ({onSearchChange}) =>{
+
+    const [search, setSearch] = useState(null);
+
+    const loadOptions = (searchValue, loadedOptions) =>{
+        return fetch(`${GEO_API_URL}?namePrefix=${searchValue}`, geoApiOptions)
+            .then(response => response.json())
+            .then((response) => {
+                return {
+                options: response.data.map((city) => {
+                    return {
+                    value: `${city.latitude} ${city.longitude}`,
+                    label: `${city.name}, ${city.countryCode}`,
+                    };
+                }),
+                };
+            });
+    }
+
+    const handleOnChange = (searchData) =>{
+        setSearch(searchData);
+        onSearchChange(searchData);
+    };
+
+    return (<div>
+        <AsyncPaginate 
+            placeholder="Search for city..."
+            debounceTimeout={600}
+            value={search}
+            onChange={handleOnChange}
+            loadOptions={loadOptions}
+        />
+        
+        </div>
+    );
 }
 
 export default Search;
-// import React, { Component } from 'react';
-
-// class Display extends Component {
-//     render() {
-//         const {forcast: {currentTemp, high, low, phrase}, location: {city, state, zip}} = this.props;
-//         return (
-//             <article className="one-day-display">
-//                 <header>
-//                     <h2>
-//                     {city}, {state} {zip}
-//                     </h2>
-//                 </header>
-//                 <section>
-//                     <p className="current-temp">{currentTemp} &deg;F</p>
-//                     <p>{phrase.charAt(0).toUpperCase() + phrase.slice(1)}</p>
-//                 </section>
-//                 <section>
-//                     <p>High: {high} &deg;F</p>
-//                     <p>Low: {low} &deg;F</p>
-//                 </section>
-//             </article>
-//         );
-//     }
-// }
-
-// export default Display;
