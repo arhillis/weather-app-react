@@ -2,6 +2,7 @@ import React from 'react';
 import './App.scss';
 
 import Search from './components/search/search';
+import CurrentWeather from './components/current-weather';
 
 function App() {
 
@@ -12,6 +13,7 @@ function App() {
 
     return (<div className="App container">
       <Search onSearchChange={handleSearchChange}/>
+      <CurrentWeather />
     </div>);
 }
 

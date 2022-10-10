@@ -1,0 +1,33 @@
+.card {
+    max-width: 24rem;
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        .city.card-title {
+            font-weight: 600;
+            font-size: 1.25rem;
+            line-height: 1.5;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+        p.weather-description {
+            font-weight: 400;
+            font-size: 0.75rem;
+            line-height: 1.5;
+            margin: 0;
+            text-align: center;
+        }
+        .card-img-top {
+            width: 100px;
+        }
+        .temperature {
+            font-size: 3.5rem;
+        }
+    }
+    .card-body {
+        .list-group-item {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}
