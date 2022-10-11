@@ -3,9 +3,8 @@ import Card from 'react-bootstrap/Card';
 import ListGroup  from 'react-bootstrap/ListGroup';
 
 const CurrentWeather = (props) =>{
-    const {main} = props.currentWeather;
+    const {main, currentCity} = props.currentWeather;
     if(main){
-        const {currentCity} = props;
         const {feels_like, pressure, humidity, temp} = main;
         return (<Card className=' mx-auto mt-3'>
                     <Card.Header>

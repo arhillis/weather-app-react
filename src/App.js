@@ -7,26 +7,26 @@ import CurrentWeather from './components/current-weather';
 
 function App() {
   const [currentWeather, setCurrentWeather] = useState(null);
-  //const [currentForecast, setCurrentForecast] = useState(null);
-  const [currentCity, setCurrentCity] = useState(null);
+  const [currentForecast, setCurrentForecast] = useState(null);
+  //const [currentCity, setCurrentCity] = useState(null);
+  console.log(currentForecast);
 
   const handleSearchChange = async (searchData) =>{
 
       const [lat, lon] = searchData.value.split(' ');
       const weather = await fetch(`${WEATHER_API_URL}weather?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}`);
       const weatherFormatted = await weather.json();
-      //const forecast = await fetch(`${WEATHER_API_URL}forecast?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}`);
-      setCurrentCity(searchData.label);
-      setCurrentWeather(weatherFormatted);
-      // const forecastFormatted = await forecast.json(); 
-      // console.log(forecastFormatted ? forecastFormatted : 'Something went wrong');
+      const forecast = await fetch(`${WEATHER_API_URL}forecast?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}`);
+      const forecastFormatted = await forecast.json(); 
+      setCurrentWeather({currentCity: searchData.label, ...weatherFormatted});
+      setCurrentForecast(forecastFormatted);
 
       
     }
 
     return (<div className="App container">
       <Search onSearchChange={handleSearchChange}/>
-      <CurrentWeather currentWeather={currentWeather || {}} currentCity={currentCity}/>
+      <CurrentWeather currentWeather={currentWeather || {}}/>
     </div>);
 }
 
