@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import ListGroup  from 'react-bootstrap/ListGroup';
 
 const CurrentWeather = (props) =>{
-    const {main, currentCity, weather} = props.currentWeather;
+    const {main, currentCity, weather, wind} = props.currentWeather;
     const {feels_like, pressure, humidity, temp} = main;
     const {description, icon} = weather[0];
         return (<Card className=' mx-auto mt-3'>
@@ -28,7 +28,7 @@ const CurrentWeather = (props) =>{
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 <span >Wind</span>
-                                <span>2 m/s</span>
+                                <span>{Math.round(wind.speed)} m/s</span>
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 <span>Humidity</span>
