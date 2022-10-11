@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import ListGroup  from 'react-bootstrap/ListGroup';
 
 const CurrentWeather = (props) =>{
-    const {main, currentCity} = props.currentWeather;
+    const {main, currentCity, weather} = props.currentWeather;
     const {feels_like, pressure, humidity, temp} = main;
         return (<Card className=' mx-auto mt-3'>
                     <Card.Header>
@@ -15,7 +15,7 @@ const CurrentWeather = (props) =>{
                         </div>
                         <div>
                             <Card.Img variant="top" src="icons/01d.png" />
-                            <p className='weather-description'>Sunny</p>
+                            <p className='weather-description'>{weather[0].description}</p>
                         </div>
                     </Card.Header>
                      <Card.Body>
