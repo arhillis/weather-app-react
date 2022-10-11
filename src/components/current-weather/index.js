@@ -5,11 +5,12 @@ import ListGroup  from 'react-bootstrap/ListGroup';
 const CurrentWeather = (props) =>{
     const {main} = props.currentWeather;
     if(main){
+        const {currentCity} = props;
         const {feels_like, pressure, humidity, temp} = main;
         return (<Card className=' mx-auto mt-3'>
                     <Card.Header>
                         <div>
-                            <Card.Title className='city'>Belgrade</Card.Title>
+                            <Card.Title className='city'>{currentCity}</Card.Title>
                                 <div className="temperature">
                                     {temp} &deg;c
                                 </div>

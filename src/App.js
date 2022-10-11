@@ -8,13 +8,15 @@ import CurrentWeather from './components/current-weather';
 function App() {
   const [currentWeather, setCurrentWeather] = useState(null);
   //const [currentForecast, setCurrentForecast] = useState(null);
+  const [currentCity, setCurrentCity] = useState(null);
 
   const handleSearchChange = async (searchData) =>{
+
       const [lat, lon] = searchData.value.split(' ');
       const weather = await fetch(`${WEATHER_API_URL}weather?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}`);
       const weatherFormatted = await weather.json();
       //const forecast = await fetch(`${WEATHER_API_URL}forecast?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}`);
-      //console.log(weatherFormatted ? weatherFormatted : 'Something went wrong');
+      setCurrentCity(searchData.label);
       setCurrentWeather(weatherFormatted);
       // const forecastFormatted = await forecast.json(); 
       // console.log(forecastFormatted ? forecastFormatted : 'Something went wrong');
@@ -24,7 +26,7 @@ function App() {
 
     return (<div className="App container">
       <Search onSearchChange={handleSearchChange}/>
-      <CurrentWeather currentWeather={currentWeather || {}}/>
+      <CurrentWeather currentWeather={currentWeather || {}} currentCity={currentCity}/>
     </div>);
 }
 
