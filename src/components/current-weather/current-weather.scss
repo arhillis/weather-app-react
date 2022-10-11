@@ -6,28 +6,35 @@
         .city.card-title {
             font-weight: 600;
             font-size: 1.25rem;
-            line-height: 1.5;
+            line-height: 1;
             margin: 0;
             letter-spacing: 1px;
         }
-        p.weather-description {
-            font-weight: 400;
-            font-size: 0.75rem;
-            line-height: 1.5;
-            margin: 0;
-            text-align: center;
-        }
-        .card-img-top {
-            width: 100px;
-        }
-        .temperature {
-            font-size: 3.5rem;
-        }
     }
     .card-body {
+        .icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .card-img-top {
+                width: 80px;
+            }
+            p.weather-description {
+                font-weight: 400;
+                font-size: 0.75rem;
+                line-height: 1.5;
+                margin: 0;
+                text-align: center;
+            }
+        }
+        .temperature {
+            font-size: 3rem;
+            text-align: center;
+        }
         .list-group-item {
             display: flex;
             justify-content: space-between;
+            font-size: 0.75rem;
         }
     }
 }

@@ -10,35 +10,37 @@ const CurrentWeather = (props) =>{
                     <Card.Header>
                         <div>
                             <Card.Title className='city'>{currentCity}</Card.Title>
-                                <div className="temperature">
-                                    {Math.round(temp)} &deg;c
-                                </div>
                         </div>
-                        <div>
+                    </Card.Header>
+                     <Card.Body className='row'>
+                        <div className="temperature col-6">
+                            {Math.round(temp)} &deg;c
+                        <div className='icon'>
                             <Card.Img variant="top" src={`icons/${icon}.png`} />
                             <p className='weather-description'>{description}</p>
                         </div>
-                    </Card.Header>
-                     <Card.Body>
-                         <h5>Details</h5>
-                         <ListGroup variant='flush'>
-                            <ListGroup.Item>
-                                <span>Feels Like</span>
-                                <span>{Math.round(feels_like)} &deg;c</span>
-                            </ListGroup.Item>
-                            <ListGroup.Item>
-                                <span >Wind</span>
-                                <span>{Math.round(wind.speed)} m/s</span>
-                            </ListGroup.Item>
-                            <ListGroup.Item>
-                                <span>Humidity</span>
-                                <span>{humidity}%</span>
-                            </ListGroup.Item>
-                            <ListGroup.Item>
-                                <span>Pressure</span>
-                                <span>{pressure} hPa</span>
-                             </ListGroup.Item>
-                         </ListGroup>      
+                        </div>
+                        <div className="details col-6">
+                            <h5>Details</h5>  
+                            <ListGroup variant='flush'>
+                                <ListGroup.Item>
+                                    <span>Feels Like</span>
+                                    <span>{Math.round(feels_like)} &deg;c</span>
+                                </ListGroup.Item>
+                                <ListGroup.Item>
+                                    <span >Wind</span>
+                                    <span>{Math.round(wind.speed)} m/s</span>
+                                </ListGroup.Item>
+                                <ListGroup.Item>
+                                    <span>Humidity</span>
+                                    <span>{humidity}%</span>
+                                </ListGroup.Item>
+                                <ListGroup.Item>
+                                    <span>Pressure</span>
+                                    <span>{pressure} hPa</span>
+                                </ListGroup.Item>
+                            </ListGroup> 
+                        </div>   
                      </Card.Body>
             </Card>)
    
