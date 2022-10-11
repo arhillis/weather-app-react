@@ -5,17 +5,18 @@ import ListGroup  from 'react-bootstrap/ListGroup';
 const CurrentWeather = (props) =>{
     const {main, currentCity, weather} = props.currentWeather;
     const {feels_like, pressure, humidity, temp} = main;
+    const {description, icon} = weather[0];
         return (<Card className=' mx-auto mt-3'>
                     <Card.Header>
                         <div>
                             <Card.Title className='city'>{currentCity}</Card.Title>
                                 <div className="temperature">
-                                    {temp} &deg;c
+                                    {Math.round(temp)} &deg;c
                                 </div>
                         </div>
                         <div>
-                            <Card.Img variant="top" src="icons/01d.png" />
-                            <p className='weather-description'>{weather[0].description}</p>
+                            <Card.Img variant="top" src={`icons/${icon}.png`} />
+                            <p className='weather-description'>{description}</p>
                         </div>
                     </Card.Header>
                      <Card.Body>
@@ -23,7 +24,7 @@ const CurrentWeather = (props) =>{
                          <ListGroup variant='flush'>
                             <ListGroup.Item>
                                 <span>Feels Like</span>
-                                <span>{feels_like} &deg;c</span>
+                                <span>{Math.round(feels_like)} &deg;c</span>
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 <span >Wind</span>
