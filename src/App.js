@@ -26,7 +26,7 @@ function App() {
 
     return (<div className="App container">
       <Search onSearchChange={handleSearchChange}/>
-      <CurrentWeather currentWeather={currentWeather || {}}/>
+      {currentWeather && <CurrentWeather currentWeather={currentWeather}/>}
     </div>);
 }
 

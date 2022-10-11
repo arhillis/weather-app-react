@@ -4,8 +4,7 @@ import ListGroup  from 'react-bootstrap/ListGroup';
 
 const CurrentWeather = (props) =>{
     const {main, currentCity} = props.currentWeather;
-    if(main){
-        const {feels_like, pressure, humidity, temp} = main;
+    const {feels_like, pressure, humidity, temp} = main;
         return (<Card className=' mx-auto mt-3'>
                     <Card.Header>
                         <div>
@@ -41,14 +40,7 @@ const CurrentWeather = (props) =>{
                          </ListGroup>      
                      </Card.Body>
             </Card>)
-    }  
-
-
-    return    (<Card className='mx-auto mt-3'>
-            <Card.Body>
-                No data to show
-            </Card.Body>
-        </Card>)
+   
 }
 
 export default CurrentWeather;
