@@ -1,3 +1,18 @@
-.forecast {
-    background: green;
+.accordion-button div {
+    width: 100%;
+    text-align: right;
+    padding-right: 2rem;
+    &.day {
+        text-align: left;
+    }
+}
+
+.details.list-group-flush {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    .list-group-item {
+        border: none;
+        display: flex;
+        justify-content: space-between;
+    }
 }
