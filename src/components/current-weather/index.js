@@ -14,7 +14,7 @@ const CurrentWeather = (props) =>{
                     </Card.Header>
                      <Card.Body className='row'>
                         <div className="temperature col-6">
-                            {Math.round(temp)} &deg;c
+                            {Math.round(temp)} &deg;F
                         <div className='icon'>
                             <Card.Img variant="top" src={`icons/${icon}.png`} />
                             <p className='weather-description'>{description}</p>
@@ -25,7 +25,7 @@ const CurrentWeather = (props) =>{
                             <ListGroup variant='flush'>
                                 <ListGroup.Item>
                                     <span>Feels Like</span>
-                                    <span>{Math.round(feels_like)} &deg;c</span>
+                                    <span>{Math.round(feels_like)} &deg;F</span>
                                 </ListGroup.Item>
                                 <ListGroup.Item>
                                     <span >Wind</span>
