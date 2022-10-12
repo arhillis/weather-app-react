@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import './App.scss';
 import { WEATHER_API_KEY, WEATHER_API_URL } from './api';
 
+import Container from 'react-bootstrap/Container';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+
 import Search from './components/search/search';
 import CurrentWeather from './components/current-weather';
 import CurrentForecast from './components/current-forecast';
@@ -9,6 +13,10 @@ import CurrentForecast from './components/current-forecast';
 function App() {
   const [currentWeather, setCurrentWeather] = useState(null);
   const [currentForecast, setCurrentForecast] = useState(null);
+  const [modalShown, toggleModal] = useState(false);
+
+  const showModal = () => toggleModal(true);
+  const hideModal = () => toggleModal(false);
 
   const handleSearchChange = async (searchData) =>{
       const [lat, lon] = searchData.value.split(' ');
@@ -18,15 +26,33 @@ function App() {
       const forecastFormatted = await forecast.json(); 
       setCurrentWeather({currentCity: searchData.label, ...weatherFormatted});
       setCurrentForecast({currentCity: searchData.label, ...forecastFormatted});
-
       
     }
 
-    return (<div className="App container">
+    return (<Container className="App">
+            <Button variant="primary" onClick={showModal}>
+        Launch demo modal
+      </Button>
+
+      <Modal show={modalShown} onHide={hideModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={hideModal}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={hideModal}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       <Search onSearchChange={handleSearchChange}/>
       {currentWeather && <CurrentWeather currentWeather={currentWeather}/>}
       {currentForecast && <CurrentForecast currentForecast={currentForecast}/>}
-    </div>);
+    </Container>);
 }
 
 // import Display from './components/display'
