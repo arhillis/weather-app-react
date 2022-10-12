@@ -19,6 +19,7 @@ function App() {
   const hideModal = () => toggleModal(false);
 
   const handleSearchChange = async (searchData) =>{
+      if(modalShown) hideModal();
       const [lat, lon] = searchData.value.split(' ');
       const weather = await fetch(`${WEATHER_API_URL}weather?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=imperial`);
       const weatherFormatted = await weather.json();
@@ -30,26 +31,25 @@ function App() {
     }
 
     return (<Container className="App">
-            <Button variant="primary" onClick={showModal}>
-        Launch demo modal
+      <Button variant="primary" onClick={showModal}>
+        Change Location
       </Button>
 
       <Modal show={modalShown} onHide={hideModal}>
         <Modal.Header closeButton>
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Body>
+          <Search onSearchChange={handleSearchChange}/>
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={hideModal}>
             Close
           </Button>
-          <Button variant="primary" onClick={hideModal}>
-            Save Changes
-          </Button>
         </Modal.Footer>
       </Modal>
 
-      <Search onSearchChange={handleSearchChange}/>
+      
       {currentWeather && <CurrentWeather currentWeather={currentWeather}/>}
       {currentForecast && <CurrentForecast currentForecast={currentForecast}/>}
     </Container>);
