@@ -6,14 +6,13 @@ import { Accordion, ListGroup } from 'react-bootstrap';
 const WEEK_DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
 const CurrentForecast = (props) => {
-    const list = props.currentForecast.list.splice(0, 7);
+    const {list} = props.currentForecast;
     const dayOfTheWeek = new Date().getDay();
     const forecastDays = WEEK_DAYS.slice(dayOfTheWeek, WEEK_DAYS.length).concat(WEEK_DAYS.slice(0, dayOfTheWeek));
-    console.log(list);
     return (<div className="forecast">
         <label>Forecast</label>      
         <Accordion>
-            {list.map((item, index) =>{
+            {list.slice(0, 7).map((item, index) =>{
                 const {icon, description} = item.weather[0];
                 const {feels_like, humidity, pressure, sea_level, temp_max, temp_min} = item.main;
                 return (<Accordion.Item eventKey={index} key={index}>

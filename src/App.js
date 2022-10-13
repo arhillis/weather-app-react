@@ -18,7 +18,7 @@ function App() {
   const [modalShown, toggleModal] = useState(false);
   const [unit, setUnit] = useState('imperial');
 
-   const handleChange = (val) => {
+   const changeUnit = (val) => {
     setUnit(val);
    };
 
@@ -26,64 +26,62 @@ function App() {
   const hideModal = () => toggleModal(false);
 
   const handleSearchChange = async (searchData) =>{
+      //searchData = {label: 'label'}
       if(modalShown) hideModal();
-      const [lat, lon] = searchData.value.split(' ');
-      const weather = await fetch(`${WEATHER_API_URL}weather?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=${unit}`);
+      const [latitude, longitude] = searchData.value.split(' ');
+      const weather = await fetch(`${WEATHER_API_URL}weather?lat=${latitude}&lon=${longitude}&appid=${WEATHER_API_KEY}&units=${unit}`);
       const weatherFormatted = await weather.json();
-      const forecast = await fetch(`${WEATHER_API_URL}forecast?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=${unit}`);
+
+      const forecast = await fetch(`${WEATHER_API_URL}forecast?lat=${latitude}&lon=${longitude}&appid=${WEATHER_API_KEY}&units=${unit}`);
       const forecastFormatted = await forecast.json(); 
       setCurrentWeather({currentCity: searchData.label, ...weatherFormatted});
-      setCurrentForecast({currentCity: searchData.label, ...forecastFormatted});
-      
+      setCurrentForecast({currentCity: 'City goes here...', ...forecastFormatted});
   }
 
   const getCurrentLocation = () =>{
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
+        navigator.geolocation.getCurrentPosition(handleSearchChange);
       } else {
         console.log("Geolocation is not supported by this browser.");
       }
   }
 
-  function showPosition(position) {
-    //const {latitude, longitude} = position.coords;
-    const mapquest_API_KEY = "oz9OL7hgFsSS19Ljsn3iL4PNMxGRT90E";
-    //http://www.mapquestapi.com/geocoding/v1/address?key=KEY&location=
-    fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=${mapquest_API_KEY}&location=De+Kalb`)
-      .then(res => res.json())
-      .then(data => console.log(data.results[0].locations))//.results[0]
-      .catch(err => console.log(err))
+  // function showPosition(position) {
+  //   //const {latitude, longitude} = position.coords;
+  //   const mapquest_API_KEY = "oz9OL7hgFsSS19Ljsn3iL4PNMxGRT90E";
+  //   //http://www.mapquestapi.com/geocoding/v1/address?key=KEY&location=
+  //   fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=${mapquest_API_KEY}&location=De+Kalb`)
+  //     .then(res => res.json())
+  //     .then(data => console.log(data.results[0].locations))//.results[0]
+  //     .catch(err => console.log(err))
 
-  }
-
-    return (<Container className="App">
-      <Button variant="primary" onClick={showModal}>
-        Change Location
-      </Button>
-      <Button variant="primary" onClick={getCurrentLocation}>
-        Get Position
-      </Button>
-
-      <Modal show={modalShown} onHide={hideModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-            <ToggleButtonGroup type="radio" name='temp-unit' value={unit} size='sm' onChange={handleChange}>
-                <ToggleButton id="imperial" value='imperial'>
-                  &deg;F
-                </ToggleButton>
-                <ToggleButton id="metric" value='metric'>
-                  &deg;C
-                </ToggleButton>
-            </ToggleButtonGroup>
-            <Search onSearchChange={handleSearchChange}/>
-        </Modal.Body>
-      </Modal>
-      
-      {currentWeather && <CurrentWeather currentWeather={currentWeather}/>}
-      {currentForecast && <CurrentForecast currentForecast={currentForecast}/>}
-    </Container>);
+  // }
+  return (<Container className="App">
+            <Modal show={modalShown} onHide={hideModal}>
+              <Modal.Header closeButton>
+                <Modal.Title>Modal heading</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <ToggleButtonGroup type="radio" name='temp-unit' value={unit} size='sm' onChange={changeUnit}>
+                  <ToggleButton id="imperial" value='imperial'>
+                    &deg;F
+                  </ToggleButton>
+                  <ToggleButton id="metric" value='metric'>
+                    &deg;C
+                  </ToggleButton>
+                </ToggleButtonGroup>   
+                <Search onSearchChange={handleSearchChange}/>
+              </Modal.Body>
+            </Modal>           
+            <Button variant="primary" onClick={showModal}>
+              Change Location
+            </Button>  
+            <Button variant="primary" onClick={getCurrentLocation}>
+              Get Position
+            </Button>
+            {currentWeather && <CurrentWeather currentWeather={currentWeather}/>}
+            {currentForecast && <CurrentForecast currentForecast={currentForecast}/>}
+          </Container>) 
 }
 
 // import Display from './components/display'
@@ -114,9 +112,7 @@ function App() {
 
 //   getLocation = () => {
 //     const {zipCode, openWeather_API_KEY, mapquest_API_KEY} = this.state;
-    
-//     fetch(`http://api.openweathermap.org/data/2.5/weather?zip=${zipCode},us&appid=${openWeather_API_KEY}&units=imperial`)
-//     .then(res => res.json())
+
 //     .then(data => {
 //       const {name:city, coord: {lat, lon}, main:{temp, temp_max, temp_min}, weather} = data;
 //       const {description, icon} = weather[0];
