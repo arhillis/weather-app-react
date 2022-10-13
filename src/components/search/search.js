@@ -1,24 +1,29 @@
 import { useState } from "react";
 import { AsyncPaginate } from "react-select-async-paginate";
-import { GEO_API_URL, geoApiOptions } from "../../api";
+import { MAPBOX_API_KEY } from "../../api";
 
 const Search = ({onSearchChange}) =>{
 
     const [search, setSearch] = useState(null);
 
     const loadOptions = (searchValue, loadedOptions) =>{
-        return fetch(`${GEO_API_URL}?namePrefix=${searchValue}`, geoApiOptions)
+        //const mapquest_API_KEY = "oz9OL7hgFsSS19Ljsn3iL4PNMxGRT90E";
+        return fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=${MAPBOX_API_KEY}&location=${searchValue}`)
             .then(response => response.json())
             .then((response) => {
                 return {
-                options: response.data.map((city) => {
+                options: response.results[0].locations
+                .filter((city) => city.adminArea5.length > 0)
+                .map((city) => {
+                    const {adminArea1, adminArea3, adminArea5, displayLatLng} = city;
                     return {
-                    value: `${city.latitude} ${city.longitude}`,
-                    label: `${city.name}, ${city.countryCode}`,
+                        value: `${displayLatLng.lat} ${displayLatLng.lng}`,
+                        label: `${adminArea5}, ${adminArea1 === 'US' ? ` ${adminArea3} (US)` : adminArea1}`
                     };
                 }),
                 };
             });
+
     }
 
     const handleOnChange = (searchData) =>{
