@@ -5,6 +5,8 @@ import { WEATHER_API_KEY, WEATHER_API_URL } from './api';
 import Container from 'react-bootstrap/Container';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import ToggleButton from 'react-bootstrap/ToggleButton';
+import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 
 import Search from './components/search/search';
 import CurrentWeather from './components/current-weather';
@@ -14,6 +16,11 @@ function App() {
   const [currentWeather, setCurrentWeather] = useState(null);
   const [currentForecast, setCurrentForecast] = useState(null);
   const [modalShown, toggleModal] = useState(false);
+  const [unit, setUnit] = useState('imperial');
+
+   const handleChange = (val) => {
+    setUnit(val);
+   };
 
   const showModal = () => toggleModal(true);
   const hideModal = () => toggleModal(false);
@@ -21,9 +28,9 @@ function App() {
   const handleSearchChange = async (searchData) =>{
       if(modalShown) hideModal();
       const [lat, lon] = searchData.value.split(' ');
-      const weather = await fetch(`${WEATHER_API_URL}weather?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=imperial`);
+      const weather = await fetch(`${WEATHER_API_URL}weather?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=${unit}`);
       const weatherFormatted = await weather.json();
-      const forecast = await fetch(`${WEATHER_API_URL}forecast?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=imperial`);
+      const forecast = await fetch(`${WEATHER_API_URL}forecast?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=${unit}`);
       const forecastFormatted = await forecast.json(); 
       setCurrentWeather({currentCity: searchData.label, ...weatherFormatted});
       setCurrentForecast({currentCity: searchData.label, ...forecastFormatted});
@@ -62,15 +69,17 @@ function App() {
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Search onSearchChange={handleSearchChange}/>
+            <ToggleButtonGroup type="radio" name='temp-unit' value={unit} size='sm' onChange={handleChange}>
+                <ToggleButton id="imperial" value='imperial'>
+                  &deg;F
+                </ToggleButton>
+                <ToggleButton id="metric" value='metric'>
+                  &deg;C
+                </ToggleButton>
+            </ToggleButtonGroup>
+            <Search onSearchChange={handleSearchChange}/>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={hideModal}>
-            Close
-          </Button>
-        </Modal.Footer>
       </Modal>
-
       
       {currentWeather && <CurrentWeather currentWeather={currentWeather}/>}
       {currentForecast && <CurrentForecast currentForecast={currentForecast}/>}
