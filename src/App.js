@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.scss';
-import { WEATHER_API_KEY, WEATHER_API_URL } from './api';
+import { MAPBOX_API_KEY, MAPBOX_API_URL, WEATHER_API_KEY, WEATHER_API_URL } from './api';
 
 import Container from 'react-bootstrap/Container';
 import Modal from 'react-bootstrap/Modal';
@@ -40,22 +40,23 @@ function App() {
 
   const getCurrentLocation = () =>{
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(handleSearchChange);
+        navigator.geolocation.getCurrentPosition(showPosition);
       } else {
         console.log("Geolocation is not supported by this browser.");
       }
   }
 
-  // function showPosition(position) {
-  //   //const {latitude, longitude} = position.coords;
-  //   const mapquest_API_KEY = "oz9OL7hgFsSS19Ljsn3iL4PNMxGRT90E";
-  //   //http://www.mapquestapi.com/geocoding/v1/address?key=KEY&location=
-  //   fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=${mapquest_API_KEY}&location=De+Kalb`)
-  //     .then(res => res.json())
-  //     .then(data => console.log(data.results[0].locations))//.results[0]
-  //     .catch(err => console.log(err))
+  function showPosition(position) {
+    const {latitude, longitude} = position.coords;
+    fetch(`${MAPBOX_API_URL}/reverse?key=${MAPBOX_API_KEY}&location=${latitude},${longitude}`)
+      .then(res => res.json())
+      .then(data =>{ 
+        const {adminArea1, adminArea3, adminArea5} = data.results[0].locations[0]
+        handleSearchChange({label: `${adminArea5}, ${adminArea3} (${adminArea1})`, value: `${latitude} ${longitude}`});
+      })
+      .catch(err => console.log(err))
 
-  // }
+  }
   return (<Container className="App">
             <Modal show={modalShown} onHide={hideModal}>
               <Modal.Header closeButton>
@@ -73,7 +74,7 @@ function App() {
                 <Search onSearchChange={handleSearchChange}/>
               </Modal.Body>
             </Modal>           
-            <Button variant="primary" onClick={showModal}>
+            <Button variant="primary" onClick={showModal} className="btn-info">
               Change Location
             </Button>  
             <Button variant="primary" onClick={getCurrentLocation}>
