@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AsyncPaginate } from "react-select-async-paginate";
-import { MAPBOX_API_KEY } from "../../api";
+import { MAPBOX_API_KEY, MAPBOX_API_URL } from "../../api";
 
 const Search = ({onSearchChange}) =>{
 
@@ -8,7 +8,7 @@ const Search = ({onSearchChange}) =>{
 
     const loadOptions = (searchValue, loadedOptions) =>{
         //const mapquest_API_KEY = "oz9OL7hgFsSS19Ljsn3iL4PNMxGRT90E";
-        return fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=${MAPBOX_API_KEY}&location=${searchValue}`)
+        return fetch(`${MAPBOX_API_URL}/address?key=${MAPBOX_API_KEY}&location=${searchValue}`)
             .then(response => response.json())
             .then((response) => {
                 return {
