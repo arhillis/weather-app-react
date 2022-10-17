@@ -8,10 +8,15 @@ import ListGroup  from 'react-bootstrap/ListGroup';
 const CurrentWeather = (props) =>{
     const [date, setDate] = useState(null);
     const [time, setTime] = useState(null);
-    const {main, currentCity, weather, wind, coord} = props.currentWeather;
-    const {lat, lon} = coord;
-    const {feels_like, pressure, humidity, temp} = main;
-    const {description, icon} = weather[0];
+
+    const {
+        coord: {lat, lon},
+        currentCity,
+        main: {feels_like, pressure, humidity, temp},
+        weather: [{description, icon}],
+        wind
+    } = props.currentWeather;
+
 
     useEffect(() =>{
         fetch(`${IP_GEO_API_URL}?apiKey=${IP_GEO_API_KEY}&lat=${lat}&long=${lon}`)
