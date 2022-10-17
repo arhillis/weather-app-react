@@ -35,7 +35,7 @@ function App() {
       const forecast = await fetch(`${WEATHER_API_URL}forecast?lat=${latitude}&lon=${longitude}&appid=${WEATHER_API_KEY}&units=${unit}`);
       const forecastFormatted = await forecast.json(); 
       setCurrentWeather({currentCity: searchData.label, ...weatherFormatted});
-      setCurrentForecast({currentCity: 'City goes here...', ...forecastFormatted});
+      setCurrentForecast({...forecastFormatted});
   }
 
   const getCurrentLocation = () =>{
