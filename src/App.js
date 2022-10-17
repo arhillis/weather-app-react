@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.scss';
-import { MAPBOX_API_KEY, MAPBOX_API_URL, WEATHER_API_KEY, WEATHER_API_URL } from './api';
+import { MAPBOX_API_KEY, MAPBOX_API_URL} from './api';
+import { getWeatherData } from './services/weather-service';
 
 import Container from 'react-bootstrap/Container';
 import Modal from 'react-bootstrap/Modal';
@@ -26,14 +27,10 @@ function App() {
   const hideModal = () => toggleModal(false);
 
   const handleSearchChange = async (searchData) =>{
-      //searchData = {label: 'label'}
       if(modalShown) hideModal();
       const [latitude, longitude] = searchData.value.split(' ');
-      const weather = await fetch(`${WEATHER_API_URL}weather?lat=${latitude}&lon=${longitude}&appid=${WEATHER_API_KEY}&units=${unit}`);
-      const weatherFormatted = await weather.json();
-
-      const forecast = await fetch(`${WEATHER_API_URL}forecast?lat=${latitude}&lon=${longitude}&appid=${WEATHER_API_KEY}&units=${unit}`);
-      const forecastFormatted = await forecast.json(); 
+      const weatherFormatted = await getWeatherData('weather', unit, latitude, longitude);
+      const forecastFormatted = await getWeatherData('forecast', unit, latitude, longitude); 
       setCurrentWeather({currentCity: searchData.label, ...weatherFormatted});
       setCurrentForecast({...forecastFormatted});
   }
