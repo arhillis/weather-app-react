@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './current-weather.scss';
+import { IP_GEO_API_KEY, IP_GEO_API_URL } from '../../api';
+
 import Card from 'react-bootstrap/Card';
 import ListGroup  from 'react-bootstrap/ListGroup';
 
@@ -12,7 +14,7 @@ const CurrentWeather = (props) =>{
     const {description, icon} = weather[0];
 
     useEffect(() =>{
-        fetch(`https://api.ipgeolocation.io/timezone?apiKey=48648a513e7542e2b5e6df76045ca32d&lat=${lat}&long=${lon}`)
+        fetch(`${IP_GEO_API_URL}?apiKey=${IP_GEO_API_KEY}&lat=${lat}&long=${lon}`)
             .then(res => res.json())
             .then(data => {
                 console.log('Data fetched!!!');
