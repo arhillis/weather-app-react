@@ -29,9 +29,11 @@ function App() {
   const handleSearchChange = async (searchData) =>{
       if(modalShown) hideModal();
       const [latitude, longitude] = searchData.value.split(' ');
-      const weatherFormatted = await getWeatherData('weather', unit, latitude, longitude);
+      //const weatherFormatted = await getWeatherData('weather', unit, latitude, longitude);
       const forecastFormatted = await getWeatherData('forecast', unit, latitude, longitude); 
-      setCurrentWeather({currentCity: searchData.label, ...weatherFormatted});
+      const oneCall = await getWeatherData('onecall', unit, latitude, longitude); 
+      const {current} = oneCall;
+      setCurrentWeather({currentCity: searchData.label, latitude, longitude, ...current});
       setCurrentForecast({...forecastFormatted});
   }
 

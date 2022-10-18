@@ -1,25 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import './current-weather.scss';
-import { IP_GEO_API_KEY, IP_GEO_API_URL } from '../../api';
+import { IP_GEO_API_KEY, IP_GEO_API_URL} from '../../api';
 
 import Card from 'react-bootstrap/Card';
 import ListGroup  from 'react-bootstrap/ListGroup';
 
 const CurrentWeather = (props) =>{
+    const {
+        currentCity, feels_like, humidity, latitude, longitude, pressure, temp, wind_speed,
+        weather: [{description, icon}],
+    } = props.currentWeather;
+
     const [date, setDate] = useState(null);
     const [time, setTime] = useState(null);
 
-    const {
-        coord: {lat, lon},
-        currentCity,
-        main: {feels_like, pressure, humidity, temp},
-        weather: [{description, icon}],
-        wind
-    } = props.currentWeather;
-
-
     useEffect(() =>{
-        fetch(`${IP_GEO_API_URL}?apiKey=${IP_GEO_API_KEY}&lat=${lat}&long=${lon}`)
+        fetch(`${IP_GEO_API_URL}?apiKey=${IP_GEO_API_KEY}&lat=${latitude}&long=${longitude}`)
             .then(res => res.json())
             .then(data => {
                 console.log('Data fetched!!!');
@@ -28,20 +24,20 @@ const CurrentWeather = (props) =>{
                 setTime(`${data.time_12.slice(0, 5)}${data.time_12.slice(8, 11)}`);         
             })
             .catch(err => console.log(err));
-    }, [lat, lon] )
+    }, [latitude, longitude] )
 
 
         return (<Card className=' mx-auto mt-3'>
-                    <Card.Header>
+                     <Card.Header>
                         <div>
                             <Card.Title>{currentCity}</Card.Title>
                         </div> 
                     </Card.Header>
-                     <Card.Body className='row'>   
+                    <Card.Body className='row'>  
                         <div className="date-time col-12">
                             <p className='date'>{date}</p>
                             <p className='time'>Local Time: {time}</p>                             
-                        </div>                    
+                        </div>                  
                         <div className="temperature col-6">
                             {Math.round(temp)} &deg;F
                             <div className='icon'>
@@ -58,7 +54,7 @@ const CurrentWeather = (props) =>{
                                 </ListGroup.Item>
                                 <ListGroup.Item>
                                     <span >Wind</span>
-                                    <span>{Math.round(wind.speed)} m/s</span>
+                                    <span>{Math.round(wind_speed)} m/s</span>
                                 </ListGroup.Item>
                                 <ListGroup.Item>
                                     <span>Humidity</span>
@@ -69,9 +65,9 @@ const CurrentWeather = (props) =>{
                                     <span>{pressure} hPa</span>
                                 </ListGroup.Item>
                             </ListGroup> 
-                        </div>   
+                        </div>
                      </Card.Body>
-            </Card>)
+                </Card>)
    
 }
 
