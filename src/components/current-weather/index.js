@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import './current-weather.scss';
 import { IP_GEO_API_KEY, IP_GEO_API_URL} from '../../api';
 
@@ -6,6 +7,7 @@ import Card from 'react-bootstrap/Card';
 import ListGroup  from 'react-bootstrap/ListGroup';
 
 const CurrentWeather = (props) =>{
+    console.log(props);
     const {
         currentCity, feels_like, humidity, latitude, longitude, pressure, temp, wind_speed,
         weather: [{description, icon}],
@@ -70,5 +72,22 @@ const CurrentWeather = (props) =>{
                 </Card>)
    
 }
+
+CurrentWeather.defaultProps = {
+    currentCity: 'Anywhere' 
+}
+
+CurrentWeather.propTypes = {
+    currentWeather: PropTypes.shape({
+        currentCity: PropTypes.string,
+        feels_like: PropTypes.number,
+        humidity: PropTypes.number,
+        latitude: PropTypes.string,
+        longitude: PropTypes.string,
+        pressure: PropTypes.number,
+        wind_speed: PropTypes.number,
+        weather: PropTypes.array
+    })
+};
 
 export default CurrentWeather;
