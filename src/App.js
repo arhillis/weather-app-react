@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { MAPBOX_API_KEY, MAPBOX_API_URL} from './api';
 import { getWeatherData } from './services/weather-service';
@@ -56,6 +56,9 @@ function App() {
       .catch(err => console.log(err))
 
   }
+
+  useEffect(() => getCurrentLocation(), []);
+  
   return (<Container className="App">
             <Modal show={modalShown} onHide={hideModal}>
               <Modal.Header closeButton>
