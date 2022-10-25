@@ -31,7 +31,6 @@ function App() {
   const handleSearchChange = async (searchData) =>{
       if(modalShown) hideModal();
       const [latitude, longitude] = searchData.value.split(' ');
-      //const weatherFormatted = await getWeatherData('weather', unit, latitude, longitude);
       const forecastFormatted = await getWeatherData('forecast', unit, latitude, longitude); 
       const oneCall = await getWeatherData('onecall', unit, latitude, longitude); 
       const {current} = oneCall;
@@ -61,7 +60,8 @@ function App() {
 
   useEffect(() => getCurrentLocation(), []);
   
-  return (<Container className="App">
+  return (<>
+          <Container className="App">
             <Modal show={modalShown} onHide={hideModal}>
               <Modal.Header closeButton>
                 <Modal.Title>Modal heading</Modal.Title>
@@ -86,7 +86,8 @@ function App() {
             </Button>
             {currentWeather && <CurrentWeather currentWeather={currentWeather}/>}
             {currentForecast && <CurrentForecast currentForecast={currentForecast}/>}
-          </Container>) 
+          </Container>
+          </>) 
 }
 
 // import Display from './components/display'
