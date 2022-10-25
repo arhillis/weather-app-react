@@ -5,7 +5,7 @@ import './App.scss';
 import { MAPBOX_API_KEY, MAPBOX_API_URL} from './api';
 import { getWeatherData } from './services/weather-service';
 
-import Container from 'react-bootstrap/Container';
+//import Container from 'react-bootstrap/Container';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import ToggleButton from 'react-bootstrap/ToggleButton';
@@ -31,11 +31,11 @@ function App() {
   const handleSearchChange = async (searchData) =>{
       if(modalShown) hideModal();
       const [latitude, longitude] = searchData.value.split(' ');
-      const forecastFormatted = await getWeatherData('forecast', unit, latitude, longitude); 
+      //const forecastFormatted = await getWeatherData('forecast', unit, latitude, longitude); 
       const oneCall = await getWeatherData('onecall', unit, latitude, longitude); 
-      const {current} = oneCall;
+      const {current, daily, hourly} = oneCall;
       setCurrentWeather({currentCity: searchData.label, latitude, longitude, ...current});
-      setCurrentForecast({...forecastFormatted});
+      setCurrentForecast({daily, hourly});
   }
 
   const getCurrentLocation = () =>{
