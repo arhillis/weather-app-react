@@ -7,7 +7,6 @@ import Card from 'react-bootstrap/Card';
 import ListGroup  from 'react-bootstrap/ListGroup';
 
 const CurrentWeather = (props) =>{
-    console.log(props);
     const {
         currentCity, feels_like, humidity, latitude, longitude, pressure, temp, wind_speed,
         weather: [{description, icon}],
