@@ -61,7 +61,6 @@ function App() {
   useEffect(() => getCurrentLocation(), []);
   
   return (<>
-          <Container className="App">
             <Modal show={modalShown} onHide={hideModal}>
               <Modal.Header closeButton>
                 <Modal.Title>Modal heading</Modal.Title>
@@ -86,7 +85,6 @@ function App() {
             </Button>
             {currentWeather && <CurrentWeather currentWeather={currentWeather}/>}
             {currentForecast && <CurrentForecast currentForecast={currentForecast}/>}
-          </Container>
           </>) 
 }
 
