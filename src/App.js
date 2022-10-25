@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 import { MAPBOX_API_KEY, MAPBOX_API_URL} from './api';
 import { getWeatherData } from './services/weather-service';
