@@ -48,11 +48,14 @@ function App() {
 
   function showPosition(position) {
     const {latitude, longitude} = position.coords;
-    fetch(`${MAPBOX_API_URL}/reverse?key=${MAPBOX_API_KEY}&location=${latitude},${longitude}`)
+    fetch(`${MAPBOX_API_URL}/mapbox.places/${longitude},${latitude}.json?access_token=${MAPBOX_API_KEY}`)
       .then(res => res.json())
       .then(data =>{ 
-        const {adminArea1, adminArea3, adminArea5} = data.results[0].locations[0]
-        handleSearchChange({label: `${adminArea5}, ${adminArea3} (${adminArea1})`, value: `${latitude} ${longitude}`});
+        const {context} =data.features[0];
+        handleSearchChange({
+            label: `${context[1].text}, ${context[3].text}`, 
+            value: `${latitude} ${longitude}`
+        });
       })
       .catch(err => console.log(err))
 
