@@ -2,9 +2,13 @@ import './current-forecast.scss';
 import { Accordion} from 'react-bootstrap';//, ListGroup 
 
 import Header from './header';
+<<<<<<< HEAD
 import Body from './body';
 
                                     
+=======
+import Body from './body';                                  
+>>>>>>> f103524... Got rid of week day stuff
 
 function CurrentForecast(props){
     const {daily} = props.currentForecast;//, hourly
