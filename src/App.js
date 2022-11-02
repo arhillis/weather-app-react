@@ -66,7 +66,7 @@ function App() {
   return (<>
             <Modal show={modalShown} onHide={hideModal}>
               <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
+                <Modal.Title>Location Search</Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <ToggleButtonGroup type="radio" name='temp-unit' value={unit} size='sm' onChange={changeUnit}>
