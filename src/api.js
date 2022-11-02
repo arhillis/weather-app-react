@@ -1,3 +1,4 @@
+//Used in the search component
 export const geoApiOptions = {
   method: "GET",
   headers: {
@@ -9,14 +10,16 @@ export const geoApiOptions = {
 
 export const GEO_API_URL = "https://wft-geo-db.p.rapidapi.com/v1/geo";
 
-export const MAPBOX_API_KEY = "pk.eyJ1IjoiYXJoaWxsaXMiLCJhIjoiY2w5eTllbWxzMDJtbzN1cG0zOW1zbWsxeCJ9.ERr_X-vsKe_9t5NqbPYw6Q";
+//Used in App.js (showPosition)
+export const MAPBOX_API_KEY = process.env.REACT_APP_MAPBOX_API_KEY;
 
 export const MAPBOX_API_URL = "https://api.mapbox.com/geocoding/v5";
 
+//Used to fetch weather data (weather-service)
 export const WEATHER_API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
 export const WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/";
 
+//Used in Current weather component
 export const IP_GEO_API_KEY = "48648a513e7542e2b5e6df76045ca32d";
-
 export const IP_GEO_API_URL = "https://api.ipgeolocation.io/timezone"
