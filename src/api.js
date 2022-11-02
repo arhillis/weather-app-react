@@ -19,7 +19,3 @@ export const MAPBOX_API_URL = "https://api.mapbox.com/geocoding/v5";
 export const WEATHER_API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
 export const WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/";
-
-//Used in Current weather component
-export const IP_GEO_API_KEY = "48648a513e7542e2b5e6df76045ca32d";
-export const IP_GEO_API_URL = "https://api.ipgeolocation.io/timezone"

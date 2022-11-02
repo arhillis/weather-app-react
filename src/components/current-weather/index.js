@@ -1,44 +1,36 @@
-import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './current-weather.scss';
-import { IP_GEO_API_KEY, IP_GEO_API_URL} from '../../api';
 
 import Card from 'react-bootstrap/Card';
 import ListGroup  from 'react-bootstrap/ListGroup';
 
 const CurrentWeather = (props) =>{
     const {
-        currentCity, feels_like, humidity, latitude, longitude, pressure, temp, wind_speed,
+        currentCity, dt, feels_like, humidity, pressure, temp, wind_speed,
         weather: [{description, icon}],
     } = props.currentWeather;
 
-    const [date, setDate] = useState(null);
-    const [time, setTime] = useState(null);
+    const dateObj = new Date(dt * 1000);
 
-    useEffect(() =>{
-        fetch(`${IP_GEO_API_URL}?apiKey=${IP_GEO_API_KEY}&lat=${latitude}&long=${longitude}`)
-            .then(res => res.json())
-            .then(data => {
-                console.log('Data fetched!!!');
-                const dateStr = data.date_time_txt.split(' ');
-                setDate(`${dateStr['0']} ${dateStr['1']} ${dateStr['2']} ${dateStr['3']}`);
-                setTime(`${data.time_12.slice(0, 5)}${data.time_12.slice(8, 11)}`);         
-            })
-            .catch(err => console.log(err));
-    }, [latitude, longitude] )
-
-
-        return (<Card className=' mx-auto mt-3'>
+    return (<Card className=' mx-auto mt-3'>
                      <Card.Header>
                         <div>
                             <Card.Title>{currentCity}</Card.Title>
                         </div> 
                     </Card.Header>
                     <Card.Body className='row'>  
-                        <div className="date-time col-12">
-                            <p className='date'>{date}</p>
-                            <p className='time'>Local Time: {time}</p>                             
-                        </div>                  
+                        <div className="date-time col-6">
+                            <p className='time'>Local Date and Time: </p>                                                       
+                        </div>     
+                        <div className="date-time col-6">
+                            {dateObj.toLocaleString('en-us', {
+                                                        weekday: 'long',
+                                                        month: 'short',
+                                                        day: 'numeric',
+                                                        hour: 'numeric',
+                                                        minute: '2-digit'
+                                                    })}
+                        </div>
                         <div className="temperature col-6">
                             {Math.round(temp)} &deg;F
                             <div className='icon'>
