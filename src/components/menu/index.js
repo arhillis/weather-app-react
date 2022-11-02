@@ -16,8 +16,8 @@ function Menu(){
                         <Link to='/' className='nav-link'>
                             Home
                         </Link>
-                        <Link to='/test' className='nav-link'>
-                            Test
+                        <Link to='/daily-forecast' className='nav-link'>
+                            Daily Forecast
                         </Link>
                     </Nav>
                 </Container>
