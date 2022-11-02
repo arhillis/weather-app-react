@@ -1,18 +1,15 @@
 function Header(props){
     const {day: {
+            dt,
             temp: {max, min},
             weather: [desc]
         }
     } = props;
     const {description, icon} = desc;
-
-
-
-    const dateStr = new Date(props.day.dt * 1000);
-
+    const dateObj = new Date(dt * 1000);
     return (<>
                 <div className="day">
-                    {dateStr.toString().slice(0, 10)}
+                    {dateObj.toDateString().slice(0, 10)}
                 </div>
                 <div>{Math.round(max)}&deg;F / {Math.round(min)}&deg;F</div>  
                 <div>
