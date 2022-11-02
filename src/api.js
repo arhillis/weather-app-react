@@ -1,7 +1,7 @@
 export const geoApiOptions = {
   method: "GET",
   headers: {
-    "X-RapidAPI-Key": "94e61eb50fmshd2c33340bdf75dcp139e6ajsn166080a7e870",// enter your rapid api key here
+    "X-RapidAPI-Key": process.env.REACT_APP_GEO_API_KEY,// enter your rapid api key here
     "X-RapidAPI-Host": "wft-geo-db.p.rapidapi.com",
   },
   params: {countryIds: 'US'}
@@ -13,7 +13,7 @@ export const MAPBOX_API_KEY = "pk.eyJ1IjoiYXJoaWxsaXMiLCJhIjoiY2w5eTllbWxzMDJtbz
 
 export const MAPBOX_API_URL = "https://api.mapbox.com/geocoding/v5";
 
-export const WEATHER_API_KEY = "87ee9d9eb500edc3fa8b18f1e1c97509";
+export const WEATHER_API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
 export const WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/";
 
