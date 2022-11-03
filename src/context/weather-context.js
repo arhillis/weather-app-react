@@ -4,14 +4,21 @@ const WeatherContext = createContext();
 
 const WeatherProvider = ({children}) =>{
     const [unit, setUnit] = useState('imperial');
+    const [modalShown, toggleModal] = useState(false);
 
-    const handleUnitChange = () =>{
-        setUnit(unit === 'imperial' ? 'metric' : 'imperial');
+    const showModal = () => toggleModal(true);
+    const hideModal = () => toggleModal(false);
+
+    const handleUnitChange = (val) =>{
+        setUnit(val);
     }
 
     return <WeatherContext.Provider
         value = {{
             unit,
+            modalShown,
+            showModal,
+            hideModal,
             handleUnitChange
         }}
     >
