@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 import { MAPBOX_API_KEY, MAPBOX_API_URL} from './api';
 import { getWeatherData } from './services/weather-service';
+import { useWeatherContext } from './context/weather-context';
 
 //import Container from 'react-bootstrap/Container';
 import Modal from 'react-bootstrap/Modal';
@@ -62,6 +63,10 @@ function App() {
   }
 
   useEffect(() => getCurrentLocation(), []);
+
+  const weatherContext = useWeatherContext();
+
+  console.log(weatherContext.unit);
   
   return (<>
             <Modal show={modalShown} onHide={hideModal}>
@@ -86,6 +91,7 @@ function App() {
             <Button variant="primary" onClick={getCurrentLocation}>
               Get Position
             </Button>
+            <Button onClick={weatherContext.handleUnitChange}></Button>
             {currentWeather && <CurrentWeather currentWeather={currentWeather}/>}
             {currentForecast && <CurrentForecast currentForecast={currentForecast}/>}
           </>) 
