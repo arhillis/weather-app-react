@@ -3,6 +3,7 @@ import {createContext, useState, useContext} from 'react';
 const WeatherContext = createContext();
 
 const WeatherProvider = ({children}) =>{
+    const [currentForecast, setCurrentForecast] = useState(null);
     const [unit, setUnit] = useState('imperial');
     const [modalShown, toggleModal] = useState(false);
 
@@ -19,7 +20,9 @@ const WeatherProvider = ({children}) =>{
             modalShown,
             showModal,
             hideModal,
-            handleUnitChange
+            handleUnitChange,
+            currentForecast,
+            setCurrentForecast
         }}
     >
         {children}

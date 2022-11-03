@@ -18,16 +18,17 @@ import CurrentForecast from './components/current-forecast';
 
 function App() {
   const [currentWeather, setCurrentWeather] = useState(null);
-  const [currentForecast, setCurrentForecast] = useState(null);
   const weatherContext = useWeatherContext();
+
 
   const handleSearchChange = async (searchData) =>{
       if(weatherContext.modalShown) weatherContext.hideModal();
       const [latitude, longitude] = searchData.value.split(' ');
       const oneCall = await getWeatherData('onecall', weatherContext.unit, latitude, longitude); 
       const {current, daily, hourly} = oneCall;
+      console.log(oneCall);
       setCurrentWeather({currentCity: searchData.label, latitude, longitude, ...current});
-      setCurrentForecast({daily, hourly});
+      weatherContext.setCurrentForecast({daily, hourly});
   }
 
   const getCurrentLocation = () =>{
@@ -79,7 +80,7 @@ function App() {
               Get Position
             </Button>
             {currentWeather && <CurrentWeather currentWeather={currentWeather}/>}
-            {currentForecast && <CurrentForecast currentForecast={currentForecast}/>}
+            {weatherContext.currentForecast && <CurrentForecast />}
           </>) 
 }
 
