@@ -1,11 +1,14 @@
+import {useWeatherContext} from '../../context/weather-context';
+
 import './current-forecast.scss';
 import { Accordion} from 'react-bootstrap';//, ListGroup 
 
 import Header from './header';
 import Body from './body';                                   
 
-function CurrentForecast(props){
-    const {daily} = props.currentForecast;//, hourly
+function CurrentForecast(){
+    const {currentForecast: {daily}, unit}= useWeatherContext();
+    const degUnit = unit === 'imperial' ? 'F' : 'C';
 
     return (<div className='forecast'>
                 <label>Forecast</label>
@@ -13,10 +16,10 @@ function CurrentForecast(props){
                     {daily.slice(1).map((day, index) => (
                         <Accordion.Item eventKey={index} key={index}>
                             <Accordion.Header>
-                                <Header day={day}/>
+                                <Header day={day} degUnit={degUnit}/>
                             </Accordion.Header>
                             <Accordion.Body>
-                                <Body day={day} />
+                                <Body day={day} degUnit={degUnit} />
                             </Accordion.Body>
                         </Accordion.Item>
                     ))}                  
