@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
@@ -17,18 +17,15 @@ import CurrentWeather from './components/current-weather';
 import CurrentForecast from './components/current-forecast';
 
 function App() {
-  const [currentWeather, setCurrentWeather] = useState(null);
-  const weatherContext = useWeatherContext();
-
+  const {modalShown, hideModal, showModal, unit, setCurrentForecast, setCurrentWeather, handleUnitChange, currentWeather, currentForecast} = useWeatherContext();
 
   const handleSearchChange = async (searchData) =>{
-      if(weatherContext.modalShown) weatherContext.hideModal();
+      if(modalShown) hideModal();
       const [latitude, longitude] = searchData.value.split(' ');
-      const oneCall = await getWeatherData('onecall', weatherContext.unit, latitude, longitude); 
+      const oneCall = await getWeatherData('onecall', unit, latitude, longitude); 
       const {current, daily, hourly} = oneCall;
-      console.log(oneCall);
-      setCurrentWeather({currentCity: searchData.label, latitude, longitude, ...current});
-      weatherContext.setCurrentForecast({daily, hourly});
+      setCurrentWeather({currentCity: searchData.label, latitude, longitude, unit,...current});
+      setCurrentForecast({daily, hourly, unit});
   }
 
   const getCurrentLocation = () =>{
@@ -57,12 +54,12 @@ function App() {
   useEffect(() => getCurrentLocation(), []);
   
   return (<>
-            <Modal show={weatherContext.modalShown} onHide={weatherContext.hideModal}>
+            <Modal show={modalShown} onHide={hideModal}>
               <Modal.Header closeButton>
                 <Modal.Title>Location Search</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <ToggleButtonGroup type="radio" name='temp-unit' value={weatherContext.unit} size='sm' onChange={weatherContext.handleUnitChange}>
+                <ToggleButtonGroup type="radio" name='temp-unit' value={unit} size='sm' onChange={handleUnitChange}>
                   <ToggleButton id="imperial" value='imperial'>
                     &deg;F
                   </ToggleButton>
@@ -73,14 +70,14 @@ function App() {
                 <Search onSearchChange={handleSearchChange}/>
               </Modal.Body>
             </Modal>           
-            <Button variant="primary" onClick={weatherContext.showModal} className="btn-info">
+            <Button variant="primary" onClick={showModal} className="btn-info">
               Change Location
             </Button>  
             <Button variant="primary" onClick={getCurrentLocation}>
               Get Position
             </Button>
             {currentWeather && <CurrentWeather currentWeather={currentWeather}/>}
-            {weatherContext.currentForecast && <CurrentForecast />}
+            {currentForecast && <CurrentForecast />}
           </>) 
 }
 

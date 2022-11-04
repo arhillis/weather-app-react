@@ -4,6 +4,7 @@ const WeatherContext = createContext();
 
 const WeatherProvider = ({children}) =>{
     const [currentForecast, setCurrentForecast] = useState(null);
+    const [currentWeather, setCurrentWeather] = useState(null);
     const [unit, setUnit] = useState('imperial');
     const [modalShown, toggleModal] = useState(false);
 
@@ -22,7 +23,9 @@ const WeatherProvider = ({children}) =>{
             hideModal,
             handleUnitChange,
             currentForecast,
-            setCurrentForecast
+            setCurrentForecast,
+            currentWeather,
+            setCurrentWeather
         }}
     >
         {children}
