@@ -7,8 +7,8 @@ import Header from './header';
 import Body from './body';                                   
 
 function CurrentForecast(){
-    const {currentForecast: {daily}, unit}= useWeatherContext();
-    const degUnit = unit === 'imperial' ? 'F' : 'C';
+    const {currentForecast: {daily, degUnit}}= useWeatherContext();
+    
 
     return (<div className='forecast'>
                 <label>Forecast</label>

@@ -24,8 +24,9 @@ function App() {
       const [latitude, longitude] = searchData.value.split(' ');
       const oneCall = await getWeatherData('onecall', unit, latitude, longitude); 
       const {current, daily, hourly} = oneCall;
-      setCurrentWeather({currentCity: searchData.label, latitude, longitude, unit,...current});
-      setCurrentForecast({daily, hourly, unit});
+      const degUnit = unit === 'imperial' ? 'F' : 'C';
+      setCurrentWeather({currentCity: searchData.label, latitude, longitude, degUnit,...current});
+      setCurrentForecast({daily, hourly, degUnit});
   }
 
   const getCurrentLocation = () =>{

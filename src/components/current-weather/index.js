@@ -6,7 +6,7 @@ import ListGroup  from 'react-bootstrap/ListGroup';
 
 const CurrentWeather = (props) =>{
     const {
-        currentCity, dt, feels_like, humidity, pressure, temp, wind_speed,
+        currentCity, dt, feels_like, humidity, pressure, temp, degUnit, wind_speed,
         weather: [{description, icon}],
     } = props.currentWeather;
 
@@ -32,7 +32,7 @@ const CurrentWeather = (props) =>{
                                                     })}
                         </div>
                         <div className="temperature col-6">
-                            {Math.round(temp)} &deg;F
+                            {Math.round(temp)} &deg;{degUnit}
                             <div className='icon'>
                                 <Card.Img variant="top" src={`icons/${icon}.png`} />
                                 <p className='weather-description'>{description}</p>
@@ -43,7 +43,7 @@ const CurrentWeather = (props) =>{
                             <ListGroup variant='flush'>
                                 <ListGroup.Item>
                                     <span>Feels Like</span>
-                                    <span>{Math.round(feels_like)} &deg;F</span>
+                                    <span>{Math.round(feels_like)} &deg;{degUnit}</span>
                                 </ListGroup.Item>
                                 <ListGroup.Item>
                                     <span >Wind</span>
