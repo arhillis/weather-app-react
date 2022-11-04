@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
-import { MAPBOX_API_KEY, MAPBOX_API_URL} from './api';
 import { useWeatherContext } from './context/weather-context';
 
 //import Container from 'react-bootstrap/Container';
@@ -16,7 +15,7 @@ import CurrentWeather from './components/current-weather';
 import CurrentForecast from './components/current-forecast';
 
 function App() {
-  const {modalShown, hideModal, showModal, unit, handleUnitChange, currentWeather, currentForecast, handleSearchChange} = useWeatherContext();
+  const {modalShown, hideModal, showModal, unit, handleUnitChange, currentWeather, currentForecast, handleSearchChange, showPosition} = useWeatherContext();
 
 
   const getCurrentLocation = () =>{
@@ -27,20 +26,7 @@ function App() {
       }
   }
 
-  function showPosition(position) {
-    const {latitude, longitude} = position.coords;
-    fetch(`${MAPBOX_API_URL}/mapbox.places/${longitude},${latitude}.json?access_token=${MAPBOX_API_KEY}`)
-      .then(res => res.json())
-      .then(data =>{ 
-        const {context} =data.features[0];
-        handleSearchChange({
-            label: `${context[1].text}, ${context[3].text}`, 
-            value: `${latitude} ${longitude}`
-        });
-      })
-      .catch(err => console.log(err))
 
-  }
 
   useEffect(() => getCurrentLocation(), []);
   
@@ -67,7 +53,7 @@ function App() {
             <Button variant="primary" onClick={getCurrentLocation}>
               Get Position
             </Button>
-            {currentWeather && <CurrentWeather currentWeather={currentWeather}/>}
+            {currentWeather && <CurrentWeather />}
             {currentForecast && <CurrentForecast />}
           </>) 
 }

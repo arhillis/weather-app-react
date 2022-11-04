@@ -1,5 +1,6 @@
 import {createContext, useState, useContext} from 'react';
 import { getWeatherData } from '../services/weather-service';
+import {MAPBOX_API_KEY, MAPBOX_API_URL} from '../api';
 
 const WeatherContext = createContext();
 
@@ -26,9 +27,24 @@ const WeatherProvider = ({children}) =>{
         setCurrentForecast({daily, hourly, degUnit});
     }
 
+    function showPosition(position) {
+        const {latitude, longitude} = position.coords;
+            fetch(`${MAPBOX_API_URL}/mapbox.places/${longitude},${latitude}.json?access_token=${MAPBOX_API_KEY}`)
+            .then(res => res.json())
+            .then(data =>{ 
+                const {context} =data.features[0];
+                handleSearchChange({
+                    label: `${context[1].text}, ${context[3].text}`, 
+                    value: `${latitude} ${longitude}`
+                });
+            })
+            .catch(err => console.log(err))
+        }
+
     return <WeatherContext.Provider
         value = {{
             unit,
+            showPosition,
             modalShown,
             showModal,
             hideModal,
