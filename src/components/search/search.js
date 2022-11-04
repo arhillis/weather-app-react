@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { AsyncPaginate } from "react-select-async-paginate";
+import {useWeatherContext} from '../../context/weather-context';
 import { GEO_API_URL, geoApiOptions } from "../../api";
 
-const Search = ({onSearchChange}) =>{
-
+const Search = () =>{
+    const {handleSearchChange} = useWeatherContext();
     const [search, setSearch] = useState(null);
 
     const loadOptions = (searchValue, loadedOptions) =>{
@@ -30,7 +31,7 @@ const Search = ({onSearchChange}) =>{
 
     const handleOnChange = (searchData) =>{
         setSearch(searchData);
-        onSearchChange(searchData);
+        handleSearchChange(searchData);
     };
 
     return (<div>

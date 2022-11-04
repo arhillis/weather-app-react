@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 import { MAPBOX_API_KEY, MAPBOX_API_URL} from './api';
-import { getWeatherData } from './services/weather-service';
 import { useWeatherContext } from './context/weather-context';
 
 //import Container from 'react-bootstrap/Container';
@@ -17,17 +16,8 @@ import CurrentWeather from './components/current-weather';
 import CurrentForecast from './components/current-forecast';
 
 function App() {
-  const {modalShown, hideModal, showModal, unit, setCurrentForecast, setCurrentWeather, handleUnitChange, currentWeather, currentForecast} = useWeatherContext();
+  const {modalShown, hideModal, showModal, unit, handleUnitChange, currentWeather, currentForecast, handleSearchChange} = useWeatherContext();
 
-  const handleSearchChange = async (searchData) =>{
-      if(modalShown) hideModal();
-      const [latitude, longitude] = searchData.value.split(' ');
-      const oneCall = await getWeatherData('onecall', unit, latitude, longitude); 
-      const {current, daily, hourly} = oneCall;
-      const degUnit = unit === 'imperial' ? 'F' : 'C';
-      setCurrentWeather({currentCity: searchData.label, latitude, longitude, degUnit,...current});
-      setCurrentForecast({daily, hourly, degUnit});
-  }
 
   const getCurrentLocation = () =>{
       if (navigator.geolocation) {

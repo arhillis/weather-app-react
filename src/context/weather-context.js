@@ -1,4 +1,5 @@
 import {createContext, useState, useContext} from 'react';
+import { getWeatherData } from '../services/weather-service';
 
 const WeatherContext = createContext();
 
@@ -15,6 +16,16 @@ const WeatherProvider = ({children}) =>{
         setUnit(val);
     }
 
+    const handleSearchChange = async (searchData) =>{
+        if(modalShown) hideModal();
+        const [latitude, longitude] = searchData.value.split(' ');
+        const oneCall = await getWeatherData('onecall', unit, latitude, longitude); 
+        const {current, daily, hourly} = oneCall;
+        const degUnit = unit === 'imperial' ? 'F' : 'C';
+        setCurrentWeather({currentCity: searchData.label, latitude, longitude, degUnit,...current});
+        setCurrentForecast({daily, hourly, degUnit});
+    }
+
     return <WeatherContext.Provider
         value = {{
             unit,
@@ -25,7 +36,8 @@ const WeatherProvider = ({children}) =>{
             currentForecast,
             setCurrentForecast,
             currentWeather,
-            setCurrentWeather
+            setCurrentWeather,
+            handleSearchChange
         }}
     >
         {children}
