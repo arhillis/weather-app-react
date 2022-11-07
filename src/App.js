@@ -4,18 +4,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 import { useWeatherContext } from './context/weather-context';
 
-//import Container from 'react-bootstrap/Container';
-import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import ToggleButton from 'react-bootstrap/ToggleButton';
-import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 
-import Search from './components/search/search';
+import SearchModal from './components/search/modal';
 import CurrentWeather from './components/current-weather';
 import CurrentForecast from './components/current-forecast';
 
 function App() {
-  const {modalShown, hideModal, showModal, unit, handleUnitChange, currentWeather, currentForecast, handleSearchChange, showPosition} = useWeatherContext();
+  const {showModal, currentWeather, currentForecast, showPosition} = useWeatherContext();
 
 
   const getCurrentLocation = () =>{
@@ -31,29 +27,15 @@ function App() {
   useEffect(() => getCurrentLocation(), []);
   
   return (<>
-            <Modal show={modalShown} onHide={hideModal}>
-              <Modal.Header closeButton>
-                <Modal.Title>Location Search</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <ToggleButtonGroup type="radio" name='temp-unit' value={unit} size='sm' onChange={handleUnitChange}>
-                  <ToggleButton id="imperial" value='imperial'>
-                    &deg;F
-                  </ToggleButton>
-                  <ToggleButton id="metric" value='metric'>
-                    &deg;C
-                  </ToggleButton>
-                </ToggleButtonGroup>   
-                <Search onSearchChange={handleSearchChange}/>
-              </Modal.Body>
-            </Modal>           
+              
+            <SearchModal />              
             <Button variant="primary" onClick={showModal} className="btn-info">
               Change Location
             </Button>  
             <Button variant="primary" onClick={getCurrentLocation}>
               Get Position
             </Button>
-            {currentWeather && <CurrentWeather />}
+            {currentWeather && <CurrentWeather currentWeather={currentWeather}/>}
             {currentForecast && <CurrentForecast />}
           </>) 
 }
