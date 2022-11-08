@@ -7,9 +7,10 @@ import { WeatherProvider } from "./context/weather-context";
 
 import { Container } from "react-bootstrap";
 
+import CurrentWeather from "./components/current-weather";
 import Menu from "./components/menu";
-import Test from "./components/test";
 import DailyForecast from "./components/daily-forecast";
+import SearchModal from "./components/search/modal";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -19,12 +20,12 @@ root.render(
         <Menu />
         <Container>
           <Routes>
-            <Route path="/" element={<App />} />
-            <Route path="/test" element={<Test />} />
+            <Route path="/" element={<CurrentWeather />} />
             <Route path="/daily-forecast" element={<DailyForecast />} />
           </Routes>
         </Container>
-      </Router>    
+      </Router>   
+      <SearchModal />   
     </WeatherProvider>
   </React.StrictMode>
 );
