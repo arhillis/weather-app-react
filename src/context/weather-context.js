@@ -1,4 +1,4 @@
-import {createContext, useState, useContext} from 'react';
+import {createContext, useState, useContext, useEffect} from 'react';
 import { getWeatherData } from '../services/weather-service';
 import {MAPBOX_API_KEY, MAPBOX_API_URL} from '../api';
 
@@ -41,6 +41,16 @@ const WeatherProvider = ({children}) =>{
             .catch(err => console.log(err))
         }
 
+      const getCurrentLocation = () =>{
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            console.log("Geolocation is not supported by this browser.");
+        }
+    }
+
+    useEffect(() => getCurrentLocation(), []);
+
     return <WeatherContext.Provider
         value = {{
             unit,
@@ -53,7 +63,8 @@ const WeatherProvider = ({children}) =>{
             setCurrentForecast,
             currentWeather,
             setCurrentWeather,
-            handleSearchChange
+            handleSearchChange,
+            getCurrentLocation
         }}
     >
         {children}

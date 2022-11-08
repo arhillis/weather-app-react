@@ -1,5 +1,3 @@
-import React, { useEffect } from 'react';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 import { useWeatherContext } from './context/weather-context';
@@ -11,20 +9,8 @@ import CurrentWeather from './components/current-weather';
 import CurrentForecast from './components/current-forecast';
 
 function App() {
-  const {showModal, currentForecast, showPosition} = useWeatherContext();
-
-
-  const getCurrentLocation = () =>{
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-      } else {
-        console.log("Geolocation is not supported by this browser.");
-      }
-  }
-
-
-
-  useEffect(() => getCurrentLocation(), []);
+  const {showModal, currentForecast, getCurrentLocation} = useWeatherContext();
+  
   
   return (<>
               
