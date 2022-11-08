@@ -35,7 +35,7 @@ function App() {
             <Button variant="primary" onClick={getCurrentLocation}>
               Get Position
             </Button>
-            {currentWeather && <CurrentWeather currentWeather={currentWeather}/>}
+            {currentWeather && <CurrentWeather />}
             {currentForecast && <CurrentForecast />}
           </>) 
 }

@@ -1,14 +1,16 @@
 import PropTypes from 'prop-types';
 import './current-weather.scss';
+import { useWeatherContext } from '../../context/weather-context'; 
 
 import Card from 'react-bootstrap/Card';
 import ListGroup  from 'react-bootstrap/ListGroup';
 
-const CurrentWeather = (props) =>{
+const CurrentWeather = () =>{
+    const {currentWeather} = useWeatherContext();
     const {
         currentCity, dt, feels_like, humidity, pressure, temp, degUnit, wind_speed,
         weather: [{description, icon}],
-    } = props.currentWeather;
+    } = currentWeather;
 
     const dateObj = new Date(dt * 1000);
 
