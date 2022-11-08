@@ -7,11 +7,17 @@ import ListGroup  from 'react-bootstrap/ListGroup';
 
 const CurrentWeather = () =>{
     const {currentWeather} = useWeatherContext();
+
+    if(!currentWeather){
+        return (<div className=' mx-auto mt-3'>
+            Loading data...
+        </div>)
+    }
+
     const {
         currentCity, dt, feels_like, humidity, pressure, temp, degUnit, wind_speed,
         weather: [{description, icon}],
     } = currentWeather;
-
     const dateObj = new Date(dt * 1000);
 
     return (<Card className=' mx-auto mt-3'>

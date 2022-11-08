@@ -11,7 +11,7 @@ import CurrentWeather from './components/current-weather';
 import CurrentForecast from './components/current-forecast';
 
 function App() {
-  const {showModal, currentWeather, currentForecast, showPosition} = useWeatherContext();
+  const {showModal, currentForecast, showPosition} = useWeatherContext();
 
 
   const getCurrentLocation = () =>{
@@ -35,7 +35,7 @@ function App() {
             <Button variant="primary" onClick={getCurrentLocation}>
               Get Position
             </Button>
-            {currentWeather && <CurrentWeather />}
+            <CurrentWeather />
             {currentForecast && <CurrentForecast />}
           </>) 
 }
