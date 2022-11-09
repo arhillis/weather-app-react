@@ -12,11 +12,9 @@ function Menu(){
     
     return (<Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed='top'>
                 <Container>
-                    <Navbar.Brand href="#home">
-                        <Link to='/' className='nav-link'>
-                            Weather app
-                        </Link>
-                    </Navbar.Brand>
+                    <Link to='/' className='navbar-brand'>
+                        Weather app
+                    </Link>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
