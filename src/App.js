@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import { Container } from "react-bootstrap";
 
 import CurrentWeather from "./components/current-weather";
+import HourlyForecast from './components/hourly-forecast';
 import Menu from "./components/menu";
 import DailyForecast from "./components/daily-forecast";
 import SearchModal from "./components/search/modal";
@@ -18,6 +19,7 @@ function App() {
           <Routes>
             <Route path="/" element={<CurrentWeather />} />
             <Route path="/daily-forecast" element={<DailyForecast />} />
+            <Route path="/hourly-forecast" element={<HourlyForecast />} />
           </Routes>
         </Container>
         <SearchModal /> 
