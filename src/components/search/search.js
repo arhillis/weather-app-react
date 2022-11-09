@@ -15,8 +15,7 @@ const Search = () =>{
                     .then(response => response.json())
                     .then(data =>{
                         const options = data.features.map(option =>{
-                            const {center: [lon, lat], place_name, context}= option;
-                            console.log(context)
+                            const {center: [lon, lat], place_name}= option;
                             const label = place_name.includes('United States') ? place_name.replace(', United States', '') : place_name
                             return {
                                 value: `${lat} ${lon}`,
