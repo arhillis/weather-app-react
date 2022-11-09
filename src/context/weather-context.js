@@ -27,7 +27,7 @@ const WeatherProvider = ({children}) =>{
         setCurrentForecast({daily, hourly, degUnit});
     }
 
-    function showPosition(position) {
+    const showPosition = (position) => {
         const {latitude, longitude} = position.coords;
             fetch(`${MAPBOX_API_URL}/mapbox.places/${longitude},${latitude}.json?access_token=${MAPBOX_API_KEY}`)
             .then(res => res.json())
@@ -41,7 +41,7 @@ const WeatherProvider = ({children}) =>{
             .catch(err => console.log(err))
         }
 
-      const getCurrentLocation = () =>{
+    const getCurrentLocation = () =>{
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
         } else {
