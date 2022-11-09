@@ -25,8 +25,8 @@ const WeatherProvider = ({children}) =>{
         const {current, daily, hourly} = oneCall;
         const degUnit = unit === 'imperial' ? 'F' : 'C';
         setCurrentWeather({currentCity: searchData.label, latitude, longitude, degUnit,...current});
-        setDailyForecast({daily, degUnit});
-        setHourlyForecast({hourly, degUnit});
+        setDailyForecast({currentCity: searchData.label, daily, degUnit});
+        setHourlyForecast({currentCity: searchData.label, hourly, degUnit});
     }
 
     const showPosition = (position) => {
@@ -51,7 +51,7 @@ const WeatherProvider = ({children}) =>{
         }
     }
 
-    useEffect(() => getCurrentLocation());
+    useEffect(() => getCurrentLocation(), []);
 
     return <WeatherContext.Provider
         value = {{
