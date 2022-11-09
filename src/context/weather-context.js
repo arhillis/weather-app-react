@@ -5,8 +5,9 @@ import {MAPBOX_API_KEY, MAPBOX_API_URL} from '../api';
 const WeatherContext = createContext();
 
 const WeatherProvider = ({children}) =>{
-    const [currentForecast, setCurrentForecast] = useState(null);
     const [currentWeather, setCurrentWeather] = useState(null);
+    const [dailyForecast, setDailyForecast] = useState(null);
+    const [hourlyForecast, setHourlyForecast] = useState(null);
     const [unit, setUnit] = useState('imperial');
     const [modalShown, toggleModal] = useState(false);
 
@@ -24,7 +25,8 @@ const WeatherProvider = ({children}) =>{
         const {current, daily, hourly} = oneCall;
         const degUnit = unit === 'imperial' ? 'F' : 'C';
         setCurrentWeather({currentCity: searchData.label, latitude, longitude, degUnit,...current});
-        setCurrentForecast({daily, hourly, degUnit});
+        setDailyForecast({daily, degUnit});
+        setHourlyForecast({hourly, degUnit});
     }
 
     const showPosition = (position) => {
@@ -49,7 +51,7 @@ const WeatherProvider = ({children}) =>{
         }
     }
 
-    useEffect(() => getCurrentLocation(), []);
+    useEffect(() => getCurrentLocation());
 
     return <WeatherContext.Provider
         value = {{
@@ -59,8 +61,10 @@ const WeatherProvider = ({children}) =>{
             showModal,
             hideModal,
             handleUnitChange,
-            currentForecast,
-            setCurrentForecast,
+            dailyForecast,
+            setDailyForecast,
+            hourlyForecast,
+            setHourlyForecast,
             currentWeather,
             setCurrentWeather,
             handleSearchChange,
