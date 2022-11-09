@@ -1,29 +1,27 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
-import { useWeatherContext } from './context/weather-context';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
-import Button from 'react-bootstrap/Button';
+import { Container } from "react-bootstrap";
 
-import SearchModal from './components/search/modal';
-import CurrentWeather from './components/current-weather';
-import CurrentForecast from './components/current-forecast';
+import CurrentWeather from "./components/current-weather";
+import Menu from "./components/menu";
+import DailyForecast from "./components/daily-forecast";
+import SearchModal from "./components/search/modal";
 
 function App() {
-  const {showModal, currentForecast, getCurrentLocation} = useWeatherContext();
   
   
-  return (<>
-              
-            <SearchModal />              
-            <Button variant="primary" onClick={showModal} className="btn-info">
-              Change Location
-            </Button>  
-            <Button variant="primary" onClick={getCurrentLocation}>
-              Get Position
-            </Button>
-            <CurrentWeather />
-            {currentForecast && <CurrentForecast />}
-          </>) 
+  return (<Router>
+        <Menu />
+        <Container>
+          <Routes>
+            <Route path="/" element={<CurrentWeather />} />
+            <Route path="/daily-forecast" element={<DailyForecast />} />
+          </Routes>
+        </Container>
+        <SearchModal /> 
+      </Router> ) 
 }
 
 // import Display from './components/display'
