@@ -15,7 +15,7 @@ function DailyForecast(){
     const {daily, currentCity, degUnit} = dailyForecast;
     
     return (<>
-        <h1 className='py-3'>{currentCity}</h1>
+        <h1 className='py-3'>Daily Forecast - {currentCity}</h1>
         <Accordion>
             {daily.map((day, index )=> (
                 <Accordion.Item eventKey={index} key={index}>
