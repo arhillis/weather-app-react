@@ -21,7 +21,7 @@ function Menu(){
                         <Link to='/' className='nav-link'>
                             Current Weather
                         </Link>
-                        <NavDropdown collapseOnSelect title="Forecast" id="collasible-nav-dropdown">
+                        <NavDropdown title="Forecast" id="collasible-nav-dropdown">
                             <Link to='/daily-forecast' className='dropdown-item'>
                                 Daily
                             </Link>
