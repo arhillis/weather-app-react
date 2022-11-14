@@ -20,14 +20,33 @@ const WeatherProvider = ({children}) =>{
 
     const handleSearchChange = async (searchData) =>{
         if(modalShown) hideModal();
-        const [latitude, longitude] = searchData.value.split(' ');
-        const oneCall = await getWeatherData('onecall', unit, latitude, longitude); 
-        const {current, daily, hourly} = oneCall;
-        const degUnit = unit === 'imperial' ? 'F' : 'C';
         const {label} = searchData;
-        setCurrentWeather({currentCity: label, latitude, longitude, degUnit,...current});
-        setDailyForecast({currentCity: label, daily, degUnit});
-        setHourlyForecast({currentCity: label, hourly, degUnit});
+        const [latitude, longitude] = searchData.value.split(' ');
+        const degUnit = unit === 'imperial' ? 'F' : 'C';
+        const lastCall = JSON.parse(localStorage.getItem('lastCall'));
+        const {lastCallTime} = lastCall;
+        const currentTime = Date.now();
+        const timeElapsed = currentTime - lastCallTime;
+
+        /**         * 
+         * if there is a last call, and if it has been less than five minutes since the last call, fetch data local storage
+         * else fetch data from the api
+         * 1000 ms in a sec, 60 secs in 1 min, 5 minutes = 60,000 * 3 = 180,000
+         */
+        if(lastCallTime && timeElapsed > 300000){
+            const {current, daily, hourly} = lastCall;
+            setCurrentWeather({currentCity: label, latitude, longitude, degUnit,...current});
+            setDailyForecast({currentCity: label, daily, degUnit});
+            setHourlyForecast({currentCity: label, hourly, degUnit});
+        }else{
+            const oneCall = await getWeatherData('onecall', unit, latitude, longitude); 
+            const {current, daily, hourly} = oneCall;
+            setCurrentWeather({currentCity: label, latitude, longitude, degUnit,...current});
+            setDailyForecast({currentCity: label, daily, degUnit});
+            setHourlyForecast({currentCity: label, hourly, degUnit});
+            localStorage.setItem('lastCall', JSON.stringify({lastCallTime: currentTime, current, daily, hourly, unit}))
+        }
+
     }
 
     const showPosition = (position) => {
