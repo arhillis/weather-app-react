@@ -24,9 +24,10 @@ const WeatherProvider = ({children}) =>{
         const oneCall = await getWeatherData('onecall', unit, latitude, longitude); 
         const {current, daily, hourly} = oneCall;
         const degUnit = unit === 'imperial' ? 'F' : 'C';
-        setCurrentWeather({currentCity: searchData.label, latitude, longitude, degUnit,...current});
-        setDailyForecast({currentCity: searchData.label, daily, degUnit});
-        setHourlyForecast({currentCity: searchData.label, hourly, degUnit});
+        const {label} = searchData;
+        setCurrentWeather({currentCity: label, latitude, longitude, degUnit,...current});
+        setDailyForecast({currentCity: label, daily, degUnit});
+        setHourlyForecast({currentCity: label, hourly, degUnit});
     }
 
     const showPosition = (position) => {
