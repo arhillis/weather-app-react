@@ -20,12 +20,9 @@ const CurrentWeather = () =>{
     } = currentWeather;
     const dateObj = new Date(dt * 1000);
 
-    return (<Card className=' mx-auto mt-3'>
-                     <Card.Header>
-                        <div>
-                            <Card.Title>{currentCity}</Card.Title>
-                        </div> 
-                    </Card.Header>
+    return (<><h1 className='py-3'>{currentCity}</h1>
+                <h2>Current Weather</h2>
+            <Card className=' mx-auto mt-3'>
                     <Card.Body className='row'>  
                         <div className="date-time col-6">
                             <p className='time'>Local Date and Time: </p>                                                       
@@ -68,7 +65,7 @@ const CurrentWeather = () =>{
                             </ListGroup> 
                         </div>
                      </Card.Body>
-                </Card>)
+                </Card></>)
    
 }
 
