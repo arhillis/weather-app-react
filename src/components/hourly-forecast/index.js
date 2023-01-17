@@ -13,7 +13,7 @@ function HourlyForecast(){
 
     console.log(hourly[0]);
     return (<>
-        <h1 className='pt-3'>{currentCity}</h1>
+        <h1 className='py-3'>{currentCity}</h1>
         <h2>Hourly Forecast</h2>
         <Accordion>
             {hourly.slice(0, 12).map((hour, index)=> (
