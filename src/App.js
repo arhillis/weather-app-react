@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
-import { Container } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 
 import CurrentWeather from "./components/current-weather";
 import HourlyForecast from './components/hourly-forecast';
@@ -16,11 +16,15 @@ function App() {
   return (<Router>
         <Menu />
         <Container>
-          <Routes>
-            <Route path="/" element={<CurrentWeather />} />
-            <Route path="/daily-forecast" element={<DailyForecast />} />
-            <Route path="/hourly-forecast" element={<HourlyForecast />} />
-          </Routes>
+          <Row className="justify-content-center">
+            <Col md={8}>
+              <Routes>
+                <Route path="/" element={<CurrentWeather />} />
+                <Route path="/daily-forecast" element={<DailyForecast />} />
+                <Route path="/hourly-forecast" element={<HourlyForecast />} />
+              </Routes>
+            </Col>
+          </Row>
         </Container>
         <SearchModal /> 
       </Router> ) 
