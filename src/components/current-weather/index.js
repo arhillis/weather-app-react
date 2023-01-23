@@ -20,7 +20,7 @@ const CurrentWeather = () =>{
     // } = currentWeather;
     // const dateObj = new Date(dt * 1000);
 
-    return (<>Current weather goes here...</>)
+    return (<>Current weather goes here!!!</>)
 
     // return (<><h1 className='py-3'>{currentCity}</h1>
     //             <h2>Current Weather</h2>
