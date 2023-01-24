@@ -21,13 +21,17 @@ function Menu(){
                         <Link to='/' className='nav-link'>
                             Current Weather
                         </Link>
-                        <NavDropdown title="Forecast" id="collasible-nav-dropdown">
-                            <Link to='/daily-forecast' className='dropdown-item'>
-                                Daily
-                            </Link>
-                            <Link to='/hourly-forecast' className='dropdown-item'>
-                                Hourly
-                            </Link>                       
+                        <NavDropdown title="Forecast" id="basic-nav-dropdown">
+                            <NavDropdown.Item>
+                                <Link to='/daily-forecast' className='dropdown-item'>
+                                    Daily
+                                </Link>
+                            </NavDropdown.Item>
+                            <NavDropdown.Item>
+                                <Link to='/hourly-forecast' className='dropdown-item'>
+                                    Hourly
+                                </Link> 
+                            </NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                     <Nav>
