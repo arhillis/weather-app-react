@@ -1,5 +1,6 @@
 import {useWeatherContext} from '../../context/weather-context';
-import { Accordion} from 'react-bootstrap';
+import Chart from "react-apexcharts";
+//import { Accordion} from 'react-bootstrap';
 
 import Header from './header';
 
@@ -11,21 +12,49 @@ function HourlyForecast(){
 
     const {currentCity, hourly} = hourlyForecast;
 
-    console.log(hourly[0]);
+    console.log(hourly);
+
+    const options = {
+        chart: {
+          id: "basic-bar"
+        },
+        xaxis: {
+            labels: {
+            datetimeFormatter: {
+                    year: 'yyyy',
+                    month: 'MMM \'yy',
+                    day: 'dd MMM',
+                    hour: 'HH:mm'
+                }
+            }
+        }    
+      }
+
+    const series = [
+        {
+          
+          data: hourly.slice(1, 12).map(hour =>{
+            return {
+                x: hour.dt,
+                y: hour.temp
+            }
+          })
+        }
+      ]
+
     return (<>
         <h1 className='py-3'>{currentCity}</h1>
         <h2>Hourly Forecast</h2>
-        <Accordion>
-            {hourly.slice(0, 12).map((hour, index)=> (
-                <Accordion.Item  eventKey={index} key={index}>
-                    <Accordion.Header>
-                        <Header hour={hour}/>
-                    </Accordion.Header>
-                    <Accordion.Body>
-                        Body goes here...
-                    </Accordion.Body>
-                </Accordion.Item>))}
-        </Accordion>
+        <div>
+            <div className="mixed-chart">
+                <Chart
+                options={options}
+                series={series}
+                type="line"
+                width="500"
+                />
+            </div>
+        </div>
     </>)
 }
 
